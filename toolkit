@@ -1,0 +1,1741 @@
+#!/bin/bash
+clear
+echo ">>"
+function Python {
+    clear
+    PS3=">>Python>>"
+    select option in "python3 http Server" "change python version" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "python3 http Server")
+                echo '--------------------------------------'
+                echo 'command is "py3 -m http.server -d $directory"'
+                echo '--------------------------------------'
+                printf 'do you wanna run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    printf 'directory (default %s): ' "$(pwd)"
+                    read directory
+                    if [ "$directory" == "" ] ;then
+                        directory=$(pwd)
+                    fi
+                        py3 -m http.server -d $directory
+                        echo Done
+                fi;;
+            "change python version")
+                echo '--------------------------------------'
+                cat /home/kali/Desktop/READMES/python_help
+                echo 'current version :'
+                echo ""
+                python -V
+                pip -V
+                echo ""
+                echo '--------------------------------------'
+                printf 'do you wanna change python version (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        update-alternatives --config python
+                        echo Done
+                fi
+                printf 'do you wanna change pip version (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        update-alternatives --config pip
+                        echo Done
+                else
+                        echo Done
+                fi;;
+            *)
+                $REPLY;;
+        esac
+    done
+
+
+
+    
+}
+function IPv6 {
+    PS3=">>IPv6>>"
+    select option in "discovery" "DoS" "Fuzz" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "discovery")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    bash /home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh
+                    echo Done
+                else
+                    echo Done
+                fi;;
+            "DoS")
+                clear
+                echo ">>IPv6>>DoS"
+                IPv6_DoS;;
+            "Fuzz")
+                clear
+                echo '--------------------------------------'
+                echo IPv6_Fuzz
+                echo '--------------------------------------';;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+function IPv6_DoS {
+    clear
+    PS3=">>IPv6>>DoS>>"
+    select option in "2.2.1. IPv6 DAD Attack" "2.2.2. IPv6 Neighbor Advertisement Flood" "2.2.3. IPv6 DHCP Client Flood" "2.2.4. IPv6 MLD Report Flood" "2.2.5. IPv6 MLD Router Advertisement Flood" "2.2.6. IPv6 Router Advertisement Flood" "2.2.7. IPv6 Neighbor Solicitation Flood" "2.2.8. IPv6 ICMP error TooBig message Flood" "2.2.9. IPv6 Smurf Flood" "Exit"
+    do
+        clear
+        case $option in
+            "Exit")
+                clear
+                PS3=">>IPv6>>"
+                return;;
+            "2.2.1. IPv6 DAD Attack")
+                clear
+                echo '--------------------------------------'
+                echo 'tool name "THC-IPV6" path "/home/kali/Desktop/tools/third-party-tools/thc-ipv6"'
+                echo 'command is "atk6-dos-new-ip6 $interface"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'interface: '
+                    read interface
+                    atk6-dos-new-ip6 $interface
+                else
+                    echo Done
+                fi;;
+            "2.2.2. IPv6 Neighbor Advertisement Flood")
+                clear
+                echo '--------------------------------------'
+                echo 'tool name "THC-IPV6" path "/home/kali/Desktop/tools/third-party-tools/thc-ipv6"'
+                echo 'tool name "v6disc" path "/home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh"'
+                echo 'SOP: 1. use v6disc.sh discovery target IPv6'
+                echo '     2. use atk6-flood_advertise6 DoS target'
+                echo 'command is "v6disc.sh $interface" & "atk6-flood_advertise6 $interface $target_ipv6"'
+                echo '--------------------------------------'
+                printf 'run v6disc to discovery target IPv6 (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'interface: '
+                    read interface
+                    bash /home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh $interface
+                    printf 'run atk6-flood_advertise6 to DoS target IPv6 (Y/n)? '
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        printf 'target_ipv6: '
+                        read target_ipv6
+                        atk6-flood_advertise6 $interface $target_ipv6
+                    else
+                        echo Done
+                    fi
+                else
+                    printf 'run atk6-flood_advertise6 to DoS target IPv6 (Y/n)? '
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        printf 'interface: '
+                        read interface
+                        printf 'target_ipv6: '
+                        read target_ipv6
+                        atk6-flood_advertise6 $interface $target_ipv6
+                    fi
+                    echo Done
+                fi;;
+            "2.2.3. IPv6 DHCP Client Flood")
+                clear
+                echo '--------------------------------------'
+                echo 'tool name "THC-IPV6" path "/home/kali/Desktop/tools/third-party-tools/thc-ipv6"'
+                echo 'command is "atk6-flood_dhcpc6 $interface $target_ipv6"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'interface: '
+                    read interface
+                    printf 'target_ipv6: '
+                    read target_ipv6
+                    atk6-flood_dhcpc6 $interface $target_ipv6
+                else
+                    printf 'run atk6-flood_dhcpc6 to DoS target IPv6 (Y/n)? '
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        printf 'interface: '
+                        read interface
+                        printf 'target_ipv6: '
+                        read target_ipv6
+                        atk6-flood_dhcpc6 $interface $target_ipv6
+                    fi
+                    echo Done
+                fi;;
+            "2.2.4. IPv6 MLD Report Flood")
+                clear
+                echo '--------------------------------------'
+                echo 'tool name "THC-IPV6" path "/home/kali/Desktop/tools/third-party-tools/thc-ipv6"'
+                echo 'command is 1. "atk6-flood_mld6 $interface $target_ipv6"'
+                echo '        OR 2. "atk6-flood_mld26 $interface $target_ipv6"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'run 1.mld6 or 2.mld26 (1/2)?: '
+                    read mld
+                    printf 'interface: '
+                    read interface
+                    printf 'target_ipv6: '
+                    read target_ipv6
+                    if [ "$mld" == 1 ] ;then
+                        atk6-flood_mld6 $interface $target_ipv6
+                    elif [ "$mld" == 2 ] ;then
+                        atk6-flood_mld26 $interface $target_ipv6
+                    fi
+                else
+                    echo Done
+                fi;;
+            "2.2.5. IPv6 MLD Router Advertisement Flood")
+                clear
+                echo '--------------------------------------'
+                echo 'tool name "THC-IPV6" path "/home/kali/Desktop/tools/third-party-tools/thc-ipv6"'
+                echo 'tool name "v6disc" path "/home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh"'
+                echo 'SOP: 1. use v6disc.sh discovery target IPv6'
+                echo '     2. use atk6-flood_mldrouter6 DoS target'
+                echo 'command is "v6disc.sh $interface" & "atk6-flood_mldrouter6 $interface $target_ipv6"'
+                echo '--------------------------------------'
+                printf 'run v6disc to discovery target IPv6 (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'interface: '
+                    read interface
+                    bash /home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh $interface
+                    printf 'run atk6-flood_mldrouter6 to DoS target IPv6 (Y/n)? '
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        printf 'target_ipv6: '
+                        read target_ipv6
+                        atk6-flood_mldrouter6 $interface $target_ipv6
+                    else
+                        echo Done
+                    fi
+                else
+                    printf 'run atk6-flood_mldrouter6 to DoS target IPv6 (Y/n)? '
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        printf 'interface: '
+                        read interface
+                        printf 'target_ipv6: '
+                        read target_ipv6
+                        atk6-flood_mldrouter6 $interface $target_ipv6
+                    fi
+                    echo Done
+                fi;;
+            "2.2.6. IPv6 Router Advertisement Flood")
+                clear
+                echo '--------------------------------------'
+                echo 'tool name "THC-IPV6" path "/home/kali/Desktop/tools/third-party-tools/thc-ipv6"'
+                echo 'tool name "v6disc" path "/home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh"'
+                echo 'SOP: 1. use v6disc.sh discovery target IPv6'
+                echo '     2. use atk6-flood_router6 DoS target'
+                echo 'command is "v6disc.sh $interface" & "atk6-flood_router6 $interface $target_ipv6"'
+                echo '--------------------------------------'
+                printf 'run v6disc to discovery target IPv6 (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'interface: '
+                    read interface
+                    bash /home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh $interface
+                    printf 'run atk6-flood_router6 to DoS target IPv6 (Y/n)? '
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                        printf 'target_ipv6: '
+                        read target_ipv6
+                        atk6-flood_router6 $interface $target_ipv6
+                    else
+                        echo Done
+                    fi
+                else
+                    printf 'run atk6-flood_mldrouter6 to DoS target IPv6 (Y/n)? '
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        printf 'interface: '
+                        read interface
+                        printf 'target_ipv6: '
+                        read target_ipv6
+                        atk6-flood_router6 $interface $target_ipv6
+                    fi
+                    echo Done
+                fi;;
+            "2.2.7. IPv6 Neighbor Solicitation Flood")
+                clear
+                echo '--------------------------------------'
+                echo 'tool name "THC-IPV6" path "/home/kali/Desktop/tools/third-party-tools/thc-ipv6"'
+                echo 'tool name "v6disc" path "/home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh"'
+                echo 'SOP: 1. use v6disc.sh discovery target IPv6'
+                echo '     2. use atk6-flood_solicitate6 DoS target'
+                echo 'command is "v6disc.sh $interface" & "atk6-flood_solicitate6 $interface $target_ipv6"'
+                echo '--------------------------------------'
+                printf 'run v6disc to discovery target IPv6 (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'interface: '
+                    read interface
+                    bash /home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh $interface
+                    printf 'run atk6-flood_solicitate6 to DoS target IPv6 (Y/n)? '
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        printf 'target_ipv6: '
+                        read target_ipv6
+                        atk6-flood_solicitate6 $interface $target_ipv6
+                    else
+                        echo Done
+                    fi
+                else
+                    printf 'run atk6-flood_solicitate6 to DoS target IPv6 (Y/n)? '
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        printf 'interface: '
+                        read interface
+                        printf 'target_ipv6: '
+                        read target_ipv6
+                        atk6-flood_solicitate6 $interface $target_ipv6
+                    fi
+                    echo Done
+                fi;;
+            "2.2.8. IPv6 ICMP error TooBig message Flood")
+                clear
+                echo '--------------------------------------'
+                echo 'tool name "THC-IPV6" path "/home/kali/Desktop/tools/third-party-tools/thc-ipv6"'
+                echo 'tool name "v6disc" path "/home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh"'
+                echo 'SOP: 1. use v6disc.sh discovery target IPv6'
+                echo '     2. use atk6-ndpexhaust26 DoS target'
+                echo 'command is "v6disc.sh $interface" & "atk6-ndpexhaust26 $tester_ipv6 $interface $target_ipv6"'
+                echo '--------------------------------------'
+                printf 'run v6disc to discovery target IPv6 (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    printf 'tester_ipv6: '
+                    read tester_ipv6
+                    printf 'interface: '
+                    read interface
+                    bash /home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh $interface
+                    printf 'run atk6-ndpexhaust26 to DoS target IPv6 (Y/n)? '
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                        printf 'target_ipv6: '
+                        read target_ipv6
+                        atk6-ndpexhaust26 $tester_ipv6 $interface $target_ipv6
+                    else
+                        echo Done
+                    fi
+                else
+                    printf 'run atk6-ndpexhaust26 to DoS target IPv6 (Y/n)? '
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        printf 'tester_ipv6: '
+                        read tester_ipv6
+                        printf 'interface: '
+                        read interface
+                        printf 'target_ipv6: '
+                        read target_ipv6
+                        atk6-ndpexhaust26 $tester_ipv6 $interface $target_ipv6
+                    fi
+                    echo Done
+                fi;;
+            "2.2.9. IPv6 Smurf Flood")
+                clear
+                echo '--------------------------------------'
+                echo 'tool name "THC-IPV6" path "/home/kali/Desktop/tools/third-party-tools/thc-ipv6"'
+                echo 'tool name "v6disc" path "/home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh"'
+                echo 'SOP: 1. use v6disc.sh discovery target IPv6'
+                echo '     2. use atk6-smurf6 DoS target'
+                echo 'command is "v6disc.sh $interface" & "atk6-smurf6 $interface $target_ipv6 $target_multicast"'
+                echo '--------------------------------------'
+                printf 'run v6disc to discovery target IPv6 (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'interface: '
+                    read interface
+                    bash /home/kali/Desktop/tools/third-party-tools/v6disc/v6disc.sh $interface
+                    printf 'run atk6-smurf6 to DoS target IPv6 (Y/n)? '
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        printf 'target_ipv6: '
+                        read target_ipv6
+                        printf 'target_multicast: '
+                        read target_multicast
+                        atk6-smurf6 $interface $target_ipv6 $target_multicast
+                    else
+                        echo Done
+                    fi
+                else
+                    printf 'run atk6-smurf6 to DoS target IPv6 (Y/n)? '
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        printf 'interface: '
+                        read interface
+                        printf 'target_ipv6: '
+                        read target_ipv6
+                        printf 'target_multicast: '
+                        read target_multicast
+                        atk6-smurf6 $interface $target_ipv6 $target_multicast
+                    fi
+                    echo Done
+                fi;;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+function IPv4 {
+    clear
+    PS3=">>IPv4>>"
+    select option in "DoS" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "DoS")
+                clear
+                echo ">>IPv4>>DoS"
+                IPv4_DoS;;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+function IPv4_DoS {
+    clear
+    PS3=">>IPv4>>DoS>>"
+    select option in "2.1.1. IPv4 Ping of Death" "2.1.2. IPv4 Teardrop Attack" "2.1.3. IPv4 Land Attack" "2.1.4. IPv4 SYN Flood" "2.1.5. IPv4 SYN-ACK Flood" "2.1.6. IPv4 Smurf Flood" "2.1.7. IPv4 UDP Flood" "2.1.8. IPv4 ICMP Flood (Reflection) + IP Spoofed" "2.1.9. IPv4 Anomalies Attack" "2.1.10. IPv4 BlackNurse Attack" "Exit"
+    do
+        clear
+        case $option in
+            "Exit")
+                clear
+                PS3=">>IPv4>>"
+                return;;
+            "2.1.1. IPv4 Ping of Death")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "ping -f -s 65507 $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    ping -f -s 65507 $target
+                else
+                    echo Done
+                fi;;
+            "2.1.2. IPv4 Teardrop Attack")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path is "/home/kali/Desktop/tools/third-party-tools/zarp/zarp.py"'
+                echo command is "py2 zarp.py"
+                echo "usage: input 2"
+                echo "       input 4"
+                echo "       input 1"
+                echo "       input target_ip"
+                echo "       input r"
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    a=$(pwd)
+                    cd /home/kali/Desktop/tools/third-party-tools/zarp/
+                    py2 zarp.py
+                    cd $a
+                else
+                    echo Done
+                fi;;
+            "2.1.3. IPv4 Land Attack")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "hping3 -V -c 1000000 -d 120 -S -w 64 -a $target_ip -p $target_port --flood $target_ip"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target_ip: '
+                    read target_ip
+                    printf 'target_port: '
+                    read target_port
+                    hping3 -V -c 1000000 -d 120 -S -w 64 -a $target_ip -p $target_port --flood $target_ip
+                else
+                    echo Done
+                fi;;
+            "2.1.4. IPv4 SYN Flood")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "hping3 -i u1 -S -p $target_port $target_ip --rand-source"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target_port: '
+                    read target_port
+                    printf 'target_ip: '
+                    read target_ip
+                    hping3 -i u1 -S -p $target_port $target_ip --rand-source
+                else
+                    echo Done
+                fi;;
+            "2.1.5. IPv4 SYN-ACK Flood")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "hping3 -SA $target_ip -p $target_port -i u1 --rand-source"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target_ip: '
+                    read target_ip
+                    printf 'target_port: '
+                    read target_port
+                    hping3 -SA $target_ip -p $target_port -i u1 --rand-source
+                else
+                    echo Done
+                fi;;
+            "2.1.6. IPv4 Smurf Flood")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "hping3 -1 --flood -a $target_ip $target_broadcast_ip"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target_ip: '
+                    read target_ip
+                    printf 'target_broadcast_ip: '
+                    read target_broadcast_ip
+                    hping3 -1 --flood -a $target_ip $target_broadcast_ip
+                else
+                    echo Done
+                fi;;
+            "2.1.7. IPv4 UDP Flood")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "hping3 --rand-source --udp $target_ip --flood"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target_ip: '
+                    read target_ip
+                    hping3 --rand-source --udp $target_ip --flood
+                else
+                    echo Done
+                fi;;
+            "2.1.8. IPv4 ICMP Flood (Reflection) + IP Spoofed")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "hping3 --icmp --flood --rand-source -p $target_port $target_ip"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target_port: '
+                    read target_port
+                    printf 'target_ip: '
+                    read target_ip
+                    hping3 --icmp --flood --rand-source -p $target_port $target_ip
+                else
+                    echo Done
+                fi;;
+            "2.1.9. IPv4 Anomalies Attack")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "hping3 --rand-source -SAFRU -L 0 -M 0 -p $target_port $target_ip --flood"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target_port: '
+                    read target_port
+                    printf 'target_ip: '
+                    read target_ip
+                    hping3 --rand-source -SAFRU -L 0 -M 0 -p $target_port $target_ip --flood
+                else
+                    echo Done
+                fi;;
+            "2.1.10. IPv4 BlackNurse Attack")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "hping3 -1 -C 3 -K 3 -i u20 $target_ip"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target_ip: '
+                    read target_ip
+                    hping3 -1 -C 3 -K 3 -i u20 $target_ip
+                else
+                    echo Done
+                fi;;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+function TestSSL {
+    clear
+    PS3=">>Test SSL>>"
+    select option in "-e : checks each cipher suite" "-p : checks TLS/SSL portocol" "-f : checks forward secrecy settings" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "-e : checks each cipher suite")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/thitd-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'command is "bash testssl.sh -e $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/testssl/): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/testssl/$(date +"20%y%m%d_%H:%M:%S_")$target\_e
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_e
+                    fi
+                    bash /home/kali/Desktop/tools/OnwardTools/thitd-party-tools/testssl_3.0.7.sh/testssl.sh -e $target | tee $file_path
+                    echo ""
+                    echo ""
+                    echo "store as $file_path"
+                else
+                    echo Done
+                fi;;
+            "-p : checks TLS/SSL portocol")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/thitd-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'command is "bash testssl.sh -p $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/testssl/): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/testssl/$(date +"20%y%m%d_%H:%M:%S_")$target\_p
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_p
+                    fi
+                    bash /home/kali/Desktop/tools/OnwardTools/thitd-party-tools/testssl_3.0.7.sh/testssl.sh -p $target | tee $file_path
+                    echo ""
+                    echo ""
+                    echo "store as $file_path"
+                else
+                    echo Done
+                fi;;
+            "-f : checks forward secrecy settings")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/thitd-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'command is "bash testssl.sh -f $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/testssl/): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/testssl/$(date +"20%y%m%d_%H:%M:%S_")$target\_f
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_f
+                    fi
+                    bash /home/kali/Desktop/tools/OnwardTools/thitd-party-tools/testssl_3.0.7.sh/testssl.sh -f $target | tee $file_path
+                    echo ""
+                    echo ""
+                    echo "store as $file_path"
+                else
+                    echo Done
+                fi;;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+function OpenSSL {
+    clear
+    PS3=">>OpenSSL>>"
+    select option in "Generate RSA Private Key" "Generate x509 Certificate" "pkcs12 Generate pfx file" "see x509 detail" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "Generate RSA Private Key")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "openssl genrsa -out $file_path $length"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'output file path (default /home/kali/Desktop/testdata/openssl/ca.key): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path="/home/kali/Desktop/testdata/openssl/ca.key"
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/ca.key
+                    fi
+                    printf 'key length (default 2048): '
+                    read length
+                    if [ "$length" == "" ] ;then
+                        length="2048"
+                    fi
+                    openssl genrsa -out $file_path $length
+                    echo 'output file : '$file_path
+                else
+                    echo Done
+                fi;;
+            "Generate x509 Certificate")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "openssl req -new -x509 -days $days -key $key_file -out $file_path"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'days (default 1096): '
+                    read days
+                    if [ "$days" == "" ] ;then
+                        days="1096"
+                    fi
+                    printf '$key_file path (default /home/kali/Desktop/testdata/openssl/ca.key): '
+                    read key_file
+                    if [ "$key_file" == "" ] ;then
+                        key_file="/home/kali/Desktop/testdata/openssl/ca.key"
+                    fi
+                    printf 'output file path (default /home/kali/Desktop/testdata/openssl/ca.crt): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path="/home/kali/Desktop/testdata/openssl/ca.crt"
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/ca.crt
+                    fi
+                    openssl req -new -x509 -days $days -key $key_file -out $file_path
+                    echo 'output file : '$file_path
+                else
+                    echo Done
+                fi;;
+            "pkcs12 Generate pfx file")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "openssl pkcs12 -export -out $file_path -inkey $key_file -in $crt_file"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'output file path (default /home/kali/Desktop/testdata/openssl/ca.pfx): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path="/home/kali/Desktop/testdata/openssl/ca.pfx"
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/ca.pfx
+                    fi
+                    printf '$key_file path (default /home/kali/Desktop/testdata/openssl/ca.key): '
+                    read key_file
+                    if [ "$key_file" == "" ] ;then
+                        key_file="/home/kali/Desktop/testdata/openssl/ca.key"
+                    fi
+                    printf 'Certificate file path (default /home/kali/Desktop/testdata/openssl/ca.crt): '
+                    read crt_file
+                    if [ "$crt_file" == "" ] ;then
+                        crt_file="/home/kali/Desktop/testdata/openssl/ca.crt"
+                    fi
+                    openssl pkcs12 -export -out $file_path -inkey $key_file -in $crt_file
+                    echo 'output file : '$file_path
+                else
+                    echo Done
+                fi;;
+                "see x509 detail")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "openssl x509 -in $file_path -text"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'list all files in %s? ' "$PWD"
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                        find $PWD -type f
+                    fi
+                    printf 'input file path : '
+                    read file_path
+                    openssl x509 -in $file_path -text
+                else
+                    echo Done
+                fi;;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+function Nmap {
+    clear
+    PS3=">>Nmap>>"
+    select option in "TCP all port scan" "UDP all port scan" "UDP check specific port" "SSH cipher suite" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "TCP all port scan")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "nmap -sSV -T(1/5) -p- $target -oN $file_path"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf " -T 1~5 (default 3): "
+                    read t
+                    if [ "$t" == "" ] ;then
+                        t='3'
+                    fi
+                    printf 'target : '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/portscan/date_%s_T): ' "$target"
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/PortScan/$(date +"20%y%m%d_%H:%M:%S_")$target\_T
+                    fi
+                    nmap -sSV -T$t -p- $target -oN $file_path
+                    echo ""
+                    echo ""
+                    echo 'output file path : '$file_path
+                else
+                    echo Done
+                fi;;
+            "UDP all port scan")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "nmap -sUV -T(1/5) -p- $target -oN $file_path"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    printf ' -T 1~5 (default 3): '
+                    read t
+                    if [ "$t" == "" ] ;then
+                        t='3'
+                    fi
+                    printf 'target : '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/portscan/date_%s_U): ' "$target"
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/PortScan/$(date +"20%y%m%d_%H:%M:%S_")$target\_U
+                    fi
+                    nmap -sUV -T$t -p- $target -oN $file_path
+                    echo ""
+                    echo ""
+                    echo 'output file path : '$file_path
+                    possibly_ports=${file_path%/*}/$(date +"20%y%m%d_%H:%M:%S_")$target\_possibly_ports.txt
+                    cat $file_path | grep '/udp' | cut -d " " -f 1 | cut -d "/" -f 1 | tr "\r\n" "," > $possibly_ports
+                    echo ""
+                    echo ""
+                    echo 'possibly_ports file path : '$possibly_ports
+                    echo ""
+                    echo ""
+                    echo 'possibly_ports : '
+                    cat $possibly_ports
+                else
+                    echo Done
+                fi;;
+            "UDP check specific port")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "nmap -sUV -T(1/5) -p $ports $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf ' -T 1~5 (default 3): '
+                    read t
+                    if [ "$t" == "" ] ;then
+                        t='3'
+                    fi
+                    printf 'ports (use , to separate) : '
+                    read ports
+                    printf 'target : '
+                    read target
+                    nmap -sUV -T$t -p $ports $target
+                else
+                    echo Done
+                fi;;
+            "SSH cipher suite")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "nmap -sC -Pn $target -p $port --script=ssh2-enum-algos.nse"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target : '
+                    read target
+                    printf 'port (default 22): '
+                    read port
+                    if [ "$port" == "" ] ;then
+                        port="22"
+                    fi
+                    nmap -sC -Pn $target -p $port --script=ssh2-enum-algos.nse
+                else
+                    echo Done
+                fi;;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+function External_IP {
+    clear
+    echo '--------------------------------------'
+    echo 'tool path is "/home/kali/Desktop/tools/OnwardTools/external_ip"'
+    echo command is "py3 capture_external_ip.py"
+    echo '--------------------------------------'
+    printf 'run this command (Y/n)? '
+    read answer
+    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+        a=$(pwd)
+        cd /home/kali/Desktop/tools/OnwardTools/external_ip
+        printf 'PCAP directory (%s ?): ' "$a"
+        read directory
+        if [ "$directory" == "" ] ;then
+            directory=$a
+        fi
+        printf 'DUT IP ? : '
+        read dut_ip
+        if [ "$dut_ip" == "" ] ;then
+            echo "[ERROR] Please type in DUT IP !!!!!!"
+        else
+            printf 'Token (default token from annyang) ?: '
+            read token
+            py3 capture_external_ip_Nate.py $directory $dut_ip "$token"
+            cd $a
+        fi
+    else
+        echo Done
+    fi
+}
+function Iperf3 {
+    clear
+    PS3=">>Iperf3>>"
+    select option in "Server" "Client" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "Server")
+                clear
+                echo '--------------------------------------'
+                echo command is "iperf3 -s"
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    iperf3 -s
+                fi;;
+            "Client")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "iperf3 -c $ServerIP -u -b $BandWidth -t $Second"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'Server IP ? : '
+                    read ServerIP
+                    if [ "$ServerIP" == "" ] ;then
+                        echo "[ERROR] Please type in Server IP !!!!!!"
+                    else
+                        printf 'BandWidth (default 50M)? : '
+                        read BandWidth
+                        if [ "$ServerIP" == "" ] ;then
+                            BandWidth="50M"
+                        fi
+                        printf 'Time (default 15 Second)? : '
+                        read Time
+                        if [ "$Time" == "" ] ;then
+                            Time="15"
+                        fi
+                        iperf3 -c $ServerIP -u -b $BandWidth -t $Time
+                    fi
+                fi;;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+function Curl {
+    clear
+    PS3=">>Curl>>"
+    select option in "Download" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "Download")
+                printf 'remote file path ? : '
+                read R_path
+                if [ "$R_path" == "" ] ;then
+                    echo "[ERROR] Please type in remote file path !!!!!!"
+                else
+                    printf 'local file path ? : '
+                    read L_path
+                    if [ "$L_path" == "" ] ;then
+                        echo "[ERROR] Please type in local file path !!!!!!"
+                    else
+                        curl -o $L_path $R_path
+                    fi
+                fi;;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+
+function MitM_WEB {
+    clear
+    PS3=">>MitM WEB>>"
+    select option in "MitM WEB" "config iptables" "make pem format certificate chain" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "MitM WEB")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "mitmweb --mode transparent -k --certs $serverIP=$server_crt_chain --set client_certs=$client_crt_chain"'
+                echo 'certificate chain format can see the >>MitM WEB>>make pem format certificate chain'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    PWD=$(pwd)
+                    printf 'ls %s (Y/n)?' $PWD
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                        echo ""
+                        find $PWD -type f
+                        echo ""
+                    fi
+                    printf 'server IP :'
+                    read serverIP
+                    printf 'server crt chain file (.pem) :'
+                    read server_crt_chain
+                    printf 'client crt chain file (.pem) :'
+                    read client_crt_chain
+                    mitmweb --mode transparent -k --certs $serverIP=$server_crt_chain --set client_certs=$client_crt_chain
+                fi;;
+
+            "make pem format certificate chain")
+                clear
+                echo '--------------------------------------'
+                echo 'certificate chain is client_key || client_crt || ca_crt'
+                echo 'command is "cat $client_key $client_crt $ca_crt >> $chain.pem"'
+                echo ""
+                echo 'chain will be like :'
+                echo ""
+                echo '-----BEGIN RSA PRIVATE KEY-----'
+                echo '              key              '
+                echo '-----END RSA PRIVATE KEY-----'
+                echo '-----BEGIN CERTIFICATE-----'
+                echo '          client cert          '
+                echo '-----END CERTIFICATE-----'
+                echo '-----BEGIN CERTIFICATE-----'
+                echo '            CA cert            '
+                echo '-----END CERTIFICATE-----'
+                echo ""
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    PWD=$(pwd)
+                    printf 'ls %s (Y/n)?' $PWD
+                    read answer
+                    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                        echo ""
+                        find $PWD -type f
+                        echo ""
+                    fi
+                    printf 'client key file :'
+                    read client_key
+                    printf 'client crt file :'
+                    read client_crt
+                    printf 'CA crt file :'
+                    read ca_crt
+                    printf 'output file path (default %s/mitmproxy-ca.pem): ' $PWD
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=$PWD/mitmproxy-ca.pem
+                    fi
+                    cat $client_key $client_crt $ca_crt >> $file_path
+                fi
+                echo done;;
+            "config iptables")
+                clear
+                config_iptables;;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+
+function config_iptables {
+    PS3=">>MitM WEB>>config iptables>>"
+    select option in "creat iptables rules" "delete ip tables rules" "list ip tables" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>MitM WEB>>"
+                return;;
+            "creat iptables rules")
+                clear
+                echo '--------------------------------------'
+                echo '80 and 443 redirect to 8080 command is :'
+                echo '"iptables -t nat -A PREROUTING -i $interface -p tcp --dport 80 -j REDIRECT --to-port 8080"'
+                echo '"iptables -t nat -A PREROUTING -i $interface -p tcp --dport 443 -j REDIRECT --to-port 8080"'
+                echo '--------------------------------------'
+                printf 'run this default setting (Y/n)? '
+                read answer
+                printf 'interface : '
+                read interface
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    echo ""
+                    iptables -t nat -A PREROUTING -i $interface -p tcp --dport 80 -j REDIRECT --to-port 8080
+                    iptables -t nat -A PREROUTING -i $interface -p tcp --dport 443 -j REDIRECT --to-port 8080
+                    iptables -t nat -L
+                    echo ""
+                fi;;
+            "delete ip tables rules")
+                clear
+                echo ""
+                iptables -t nat -L PREROUTING --line-numbers
+                echo ""
+                a=0
+                until [ $a -eq 1 ]
+                do
+                    echo ""
+                    printf 'which number of rule you want to delete ?'
+                    read num
+                    iptables -t nat --delete PREROUTING $num
+                    clear
+                    iptables -t nat -L PREROUTING --line-numbers
+                    echo ""
+                    printf 'do you wanna keep delete rules ? (Y/n)'
+                    read answer
+                    if [ "$answer" == "${answer#[Yy]}" ] && [ "$answer" != '' ] ;then
+                        a=1
+                    fi
+                done;;
+            "list ip tables")
+                clear
+                iptables -t nat -L
+                echo "";;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+
+function Base64 {
+    clear
+    PS3=">>Base 64 codec>>"
+    select option in "encode" "decode" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "encode")
+                clear
+                printf "ls %s ? (Y/n)" "$(pwd)"
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    find $PWD -maxdepth 2 -type f
+                fi
+                printf "encode string/file : "
+                read encode
+                printf "Do you wnat store the output file ? (Y/n)"
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    if [ -e $encode ];then
+                        echo ""
+                        cat $encode | base64 | tee $(pwd)/base64_enc
+                        echo ""
+                        printf "output file is : %s/base64_enc" "$(pwd)"
+                        echo ""
+                    else
+                        echo ""
+                        echo $encode | base64 | tee $(pwd)/base64_enc
+                        echo ""
+                        printf "output file is : %s/base64_enc" "$(pwd)"
+                        echo ""
+                    fi
+                else
+                    if [ -e $encode ];then
+                        echo ""
+                        cat $encode | base64
+                        echo ""
+                    else
+                        echo ""
+                        echo $encode | base64
+                        echo ""
+                    fi
+                fi;;
+            "decode")
+                clear
+                printf "ls %s ? (Y/n)" "$(pwd)"
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    find $PWD -maxdepth 2 -type f
+                fi
+                printf "decode string/file : "
+                read decode
+                printf "Do you wnat store the output file ? (Y/n)"
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    if [ -e $decode ];then
+                        echo ""
+                        cat $decode | base64 -d | tee $(pwd)/base64_dec
+                        echo ""
+                        printf "output file is : %s/base64_dec" "$(pwd)"
+                        echo ""
+                    else
+                        echo ""
+                        echo $decode | base64 -d | tee $(pwd)/base64_dec
+                        echo ""
+                        printf "output file is : %s/base64_dec" "$(pwd)"
+                        echo ""
+                    fi
+                else
+                    if [ -e $decode ];then
+                        echo ""
+                        cat $decode | base64 -d
+                        echo ""
+                    else
+                        echo ""
+                        echo $decode | base64 -d
+                        echo ""
+                    fi
+                fi;;
+            *)
+                $REPLY;;
+        esac
+    done
+}   
+
+
+function DHCP_monitor {
+    clear
+    ifconfig
+    echo ""
+    echo "-------------------------------------"
+    printf 'whitch Interface in a same net as DUT? '
+    read Interface
+    echo ""
+    echo "-------------------------------------"
+    echo "monitoring DHCP port 67,68 traffic on "
+    echo ""
+    echo "-------------------------------------"
+    tcpdump -i $Interface port 67 or port 68 -e -n -v
+    
+}
+
+function AP_v3.1 {
+    clear
+    echo '--------------------------------------'
+    echo 'tool path is "/home/kali/Desktop/tools/OnwardTools/DHCP_v3.1/AP_v3.1.sh"'
+    echo 'command is "AP_v3.1.sh -s $outgoing_Interface -i $Interface_Connect_DUT -g $DHCP_Server_IP_and_DUT_Gateway"'
+    echo '--------------------------------------'
+    printf 'run this command (Y/n)? '
+    read answer
+    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+        a=$(pwd)
+        cd /home/kali/Desktop/tools/OnwardTools/DHCP_v3.1/
+        printf 'outgoing Interface ? : '
+        read outgoing_Interface
+        if [ "$outgoing_Interface" == "" ] ;then
+            echo "[ERROR] Please type in outgoing Interface !!!!!!"
+        else
+            printf 'Whitch Interface Connect DUT ? : '
+            read Interface_Connect_DUT
+            if [ "$Interface_Connect_DUT" == "" ] ;then
+                echo "[ERROR] Please type in Interface Whitch is Connect DUT !!!!!!"
+            else
+                printf 'DHCP Server IP and DUT Gateway (default 10.0.0.1) ? : '
+                read GW
+                if [ "$GW" == "" ] ;then
+                    GW="10.0.0.1"
+                fi
+                bash /home/kali/Desktop/tools/OnwardTools/DHCP_v3.1/AP_v3.1.sh -s $outgoing_Interface -i $Interface_Connect_DUT -g $GW
+                cd $a
+            fi
+        fi
+    else
+        echo Done
+    fi
+}
+
+function Sslsplit {
+    clear
+    echo '--------------------------------------'
+    echo 'command is "sslsplit -D -k $key_file -c $crt_file  ssl 0.0.0.0 8443 2>&1 | ts '[%Y-%m-%d %H:%M:%S]'| tee -a $log_file"'
+    echo '--------------------------------------'
+    printf 'run this command (Y/n)? '
+    read answer
+    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+        printf 'key file path (default /home/kali/Desktop/tools/OnwardTools/sslsplit/ca.key) ? : '
+        read key_file
+        if [ "$key_file" == "" ] ;then
+            key_file=/home/kali/Desktop/tools/OnwardTools/sslsplit/ca.key
+        fi
+        printf 'crt file path (default /home/kali/Desktop/tools/OnwardTools/sslsplit/ca.key) ? : '
+        read crt_file
+        if [ "$crt_file" == "" ] ;then
+            crt_file=/home/kali/Desktop/tools/OnwardTools/sslsplit/ca.crt
+        fi
+        printf 'log file path (default /home/kali/Desktop/testdata/sslsplit/): '
+        read log_file
+        if [ "$log_file" == "" ] ;then
+            log_file=/home/kali/Desktop/testdata/sslsplit/$(date +"20%y%m%d_%H:%M:%S")
+        elif [ "$log_file" == "pwd" ] ;then
+            log_file=$(pwd)/$(date +"20%y%m%d_%H:%M:%S")
+        fi
+        sslsplit -D -k $key_file -c $crt_file  ssl 0.0.0.0 8443 2>&1 | ts '[%Y-%m-%d %H:%M:%S]'| tee -a $log_file
+        echo ""
+        echo "store as $log_file"
+    fi
+}
+
+function BaseStation {
+    clear
+    PS3=">>BaseStation>>"
+    select option in "4G" "5G" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "4G")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "sshpass -p linux ssh root@192.168.40.225"'
+                echo '--------------------------------------'
+                printf 'Login 4G BaseStation (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    clear
+                    sshpass -p linux ssh root@192.168.40.225
+                fi;;
+            "5G")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "sshpass -p onwardsecurity#24572886 ssh lte@192.168.20.85"'
+                echo '--------------------------------------'
+                printf 'Login 5G BaseStation (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    clear
+                    sshpass -p onwardsecurity#24572886 ssh lte@192.168.20.85
+                fi;;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+
+function Yersinia {
+    clear
+    PS3=">>Yersinia>>"
+    select option in "open Interactive mode" "dot1q double tag attack" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "open Interactive mode")
+                clear
+                yersinia -I;;
+            "dot1q double tag attack")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "yersinia dot1q -attack 1 -vlan1 $vlanid1 -vlan2 $vlanid2 -ipsource $sourceip -ipdest $destip -interface $interface"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'VLAN ID 1 : '
+                    read vlanid1
+                    if [ "$vlanid1" == '' ] ;then
+                        echo "please type in your attacker PC Vlan ID number"
+                    else
+                        printf 'VLAN ID 2 : '
+                        read vlanid2
+                        if [ "$vlanid2" == '' ] ;then
+                            echo "please type in DUT Vlan ID number"
+                        else
+                            printf 'source IP address : '
+                            read sourceip
+                            if [ "$sourceip" == '' ] ;then
+                                echo "please type in source IP address :"
+                            else
+                                printf 'destination IP address : '
+                                read destip
+                                if [ "$destip" == '' ] ;then
+                                    echo "please type in destination IP address :"
+                                else
+                                    printf 'Interface : '
+                                    read interface
+                                    if [ "$interface" == '' ] ;then
+                                        echo "please type in interface :"
+                                    else
+                                        printf 'Send how many times (default 10) : '
+                                        read a
+                                        if [ "$a" == '' ] ;then
+                                            a=10
+                                        else
+                                            b=$(yersinia dot1q -attack 1 -vlan1 $vlanid1 -vlan2 $vlanid2 -ipsource $sourceip -ipdest $destip -interface $interface | head -n 1)
+                                            if [[ "$b" != *"Bad"* ]] && [[ "$b" != *"Unable"* ]];then
+                                                echo "send 1 times"
+                                                for i in $(seq 2 $a);
+                                                do
+                                                    yersinia dot1q -attack 1 -vlan1 $vlanid1 -vlan2 $vlanid2 -ipsource $sourceip -ipdest $destip -interface $interface >> /dev/null 2>&1
+                                                    echo "send $i times"
+                                                done
+                                                echo "done"
+                                            else
+                                                echo $b
+                                            fi
+                                        fi
+                                    fi
+                                fi
+                            fi
+                        fi
+                    fi
+                else
+                    echo Done
+                fi;;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+
+function Del_Test_Data {
+    clear
+    PS3=">>delete test data>>"
+    select option in "Test SSL" "onvif Test" "openSSL" "sslsplit" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "Test SSL")
+                clear
+                find $pwd -type f | cut -d "/" -f 7-
+                echo ""
+                printf 'delete all test data (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    rm -r /home/kali/Desktop/testdata/testssl/*
+                fi;;
+            "onvif Test")
+                clear
+                find /home/kali/Desktop/tools/OnwardTools/onvif_test/output/ -type f | cut -d "/" -f 9-
+                echo ""
+                printf 'delete all test data (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    rm -r /home/kali/Desktop/tools/OnwardTools/onvif_test/output/*
+                fi;;
+            "openSSL")
+                clear
+                find /home/kali/Desktop/testdata/openssl/ -type f | cut -d "/" -f 7-
+                echo ""
+                printf 'delete all test data (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    rm -r /home/kali/Desktop/testdata/openssl/*
+                fi;;
+            "sslsplit")
+                clear
+                find /home/kali/Desktop/testdata/sslsplit/ -type f | cut -d "/" -f 7-
+                echo ""
+                printf 'delete all test data (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    rm -r /home/kali/Desktop/testdata/sslsplit/*
+                fi;;
+            *)
+                $REPLY;;
+        esac
+    done
+}
+
+function String_search {
+    clear
+    echo '--------------------------------------'
+    echo 'input a path or file.'
+    echo 'this script will search all IPv4,IPv6,url and mail format'
+    echo 'you can type in another strings what you want to search(using " " separate)'
+    echo '--------------------------------------'
+    printf 'run this command (Y/n)? '
+    read answer
+    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+    	printf 'strings what you want to search(using " " separate)'
+        read wanna_find_list
+        printf 'only display match part (Y/n)? '
+    	read answer
+    	if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+    	    grep_argv='ainEo'
+    	else
+            grep_argv='ainE'
+    	fi
+        printf 'file or path (default %s):' "$PWD"
+        read path
+        if [ "$path" == "" ] ;then
+            file_list=$(find $PWD -type f)
+        else
+            file_list=$(find $path -type f)
+        fi
+        for file in $file_list
+        do
+            find_string_list=$(strings $file | grep -$grep_argv "\b[0-9a-fA-F]{1,4}:\w*:[0-9a-fA-F]{1,4}\w*\b" | sed "s/ /♞/g")
+            if [ "$find_string_list" != '' ] ;then
+                echo ""
+                echo ""
+                echo $file "find IPv6"
+            	for find_string in $find_string_list
+            	do 
+                    line=$(echo $find_string | cut -d ":" -f 1 )
+                    find_string=$(echo $find_string | cut -d ":" -f 2- | sed "s/♞/ /g")
+                    echo -e "\033[32mline $line:\033[0m\033[31m $find_string\033[0m"
+            	done 
+            fi
+            find_string_list=""
+            find_string_list=$(strings $file | grep -$grep_argv "\b[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\b" | sed "s/ /♞/g")
+            if [ "$find_string_list" != '' ] ;then 
+                echo ""
+                echo ""
+                echo $file "find IPv4"
+            	for find_string in $find_string_list
+            	do 
+                    line=$(echo $find_string | cut -d ":" -f 1 )
+                    find_string=$(echo $find_string | cut -d ":" -f 2- | sed "s/♞/ /g")
+                    echo -e "\033[32mline $line:\033[0m\033[31m $find_string\033[0m"
+            	done
+            fi
+            find_string_list=""
+            find_string_list=$(strings $file | grep -$grep_argv "\bhttps?\:\/\/.+\b" | sed "s/ /♞/g")
+            if [ "$find_string_list" != '' ] ;then
+                echo ""
+                echo ""
+                echo $file "find URL"
+            	for find_string in $find_string_list
+            	do 
+                    line=$(echo $find_string | cut -d ":" -f 1 )
+                    find_string=$(echo $find_string | cut -d ":" -f 2- | sed "s/♞/ /g")
+                    echo -e "\033[32mline $line:\033[0m\033[31m $find_string\033[0m"
+            	done 
+            fi
+            find_string_list=""
+            find_string_list=$(strings $file | grep -$grep_argv "\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b" | sed "s/ /♞/g")
+            if [ "$find_string_list" != '' ] ;then
+                echo ""
+                echo ""
+                echo $file "find mail address"
+            	for find_string in $find_string_list
+            	do 
+                    line=$(echo $find_string | cut -d ":" -f 1 )
+                    find_string=$(echo $find_string | cut -d ":" -f 2- | sed "s/♞/ /g")
+                    echo -e "\033[32mline $line:\033[0m\033[31m $find_string\033[0m"
+            	done 
+            fi
+            find_string_list=""
+            for wanna_find in $wanna_find_list
+            do
+            	find_string_list=""
+                find_string_list=$(strings $file | grep -$grep_argv "$wanna_find" | sed "s/ /♞/g")
+                if [ "$find_string_list" != '' ] ;then
+                    echo ""
+                    echo ""
+                    echo $file "find $wanna_find"
+                    for find_string in $find_string_list
+                    do 
+                        line=$(echo $find_string | cut -d ":" -f 1 )
+                    find_string=$(echo $find_string | cut -d ":" -f 2- | sed "s/♞/ /g")
+                    echo -e "\033[32mline $line:\033[0m\033[31m $find_string\033[0m"
+                    done 
+                fi
+                find_string_list=""
+            done
+        done
+        echo ""
+        echo ""
+        echo "search complete !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    else
+        echo Done
+    fi
+}
+
+function logo {
+    echo "
+    ███╗░░░███╗░█████╗░██████╗░███████╗  ██████╗░██╗░░░██╗  ███╗░░██╗░█████╗░████████╗███████╗  
+    ████╗░████║██╔══██╗██╔══██╗██╔════╝  ██╔══██╗╚██╗░██╔╝  ████╗░██║██╔══██╗╚══██╔══╝██╔════╝   ▄▄▄▄
+    ██╔████╔██║███████║██║░░██║█████╗░░  ██████╦╝░╚████╔╝░  ██╔██╗██║███████║░░░██║░░░█████╗░░  ▀▀▄██►
+    ██║╚██╔╝██║██╔══██║██║░░██║██╔══╝░░  ██╔══██╗░░╚██╔╝░░  ██║╚████║██╔══██║░░░██║░░░██╔══╝░░  ▀▀███►
+    ██║░╚═╝░██║██║░░██║██████╔╝███████╗  ██████╦╝░░░██║░░░  ██║░╚███║██║░░██║░░░██║░░░███████╗  ▀███► █►
+    ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═════╝░╚══════╝  ╚═════╝░░░░╚═╝░░░  ╚═╝░░╚══╝╚═╝░░╚═╝░░░╚═╝░░░╚══════╝  ▄████▀▀"
+}
+
+#------------------home_page------------------------------------#
+function home {
+    clear
+    logo
+    echo ""
+    PS3=">>"
+    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "enable/disable SSH" "BaseStation" "Base 64 codec" "delete test data" "Exit"
+    do
+        case $option in
+        "Exit")
+            clear
+            exit 0;;
+        "python")
+            clear
+            Python;;
+        "IPv6")
+            clear
+            IPv6;;
+        "IPv4")
+            clear
+            IPv4;;
+        "Test SSL")
+            clear
+            TestSSL;;
+        "External_IP")
+            clear
+            External_IP;;
+        "onvif Test")
+            clear
+            echo '--------------------------------------'
+            echo 'tool path "/home/kali/Desktop/tools/OnwardTools/onvif_test/onvif_test.sh"'
+            echo '--------------------------------------'
+            printf 'run this tool (Y/n)? '
+            read answer
+            if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                a=$(pwd)
+                cd /home/kali/Desktop/tools/OnwardTools/onvif_test/
+                bash /home/kali/Desktop/tools/OnwardTools/onvif_test/onvif_test.sh
+                cd $a
+                echo Done
+            else
+                echo Done
+            fi;;
+        "OpenSSL")
+            clear
+            OpenSSL;;
+        "Nmap")
+            clear
+            Nmap;;
+        "iperf3")
+            clear
+            Iperf3;;
+        "enable/disable SSH")   
+            if [ "$(service ssh status | grep running)" == "" ] ;then
+                service ssh start
+                echo "enable ssh"
+            else
+                service ssh stop
+                echo "disable ssh"
+            fi;;
+        "curl")
+            clear
+            Curl;;
+        "DHCP monitor")
+            clear
+            DHCP_monitor;;
+        "AP_v3.1")
+            clear
+            AP_v3.1;;
+        "MitM WEB")
+            clear
+            MitM_WEB;;
+        "sslsplit")
+            clear
+            Sslsplit;;
+        "Restart NetworkManager")
+            clear
+            service NetworkManager restart
+            ifconfig;;
+        "string search")
+            clear
+            String_search;;
+        "BaseStation")
+            clear
+            BaseStation;;
+
+        "yersinia")
+            clear
+            Yersinia;;
+        "Base 64 codec")
+            clear
+            Base64;;
+
+        "delete test data")
+            clear
+            Del_Test_Data;;
+        *)
+            $REPLY;;
+    esac
+    done
+    clear
+}
+home
+
+
+
