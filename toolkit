@@ -50,7 +50,13 @@ function Python {
                         echo Done
                 fi;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 
@@ -90,7 +96,13 @@ function IPv6 {
                 echo IPv6_Fuzz
                 echo '--------------------------------------';;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
@@ -395,7 +407,13 @@ function IPv6_DoS {
                     echo Done
                 fi;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
@@ -414,7 +432,13 @@ function IPv4 {
                 echo ">>IPv4>>DoS"
                 IPv4_DoS;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
@@ -589,7 +613,13 @@ function IPv4_DoS {
                     echo Done
                 fi;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
@@ -679,7 +709,13 @@ function TestSSL {
                     echo Done
                 fi;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
@@ -798,7 +834,13 @@ function OpenSSL {
                     echo Done
                 fi;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
@@ -916,7 +958,13 @@ function Nmap {
                     echo Done
                 fi;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
@@ -997,7 +1045,13 @@ function Iperf3 {
                     fi
                 fi;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
@@ -1026,11 +1080,16 @@ function Curl {
                     fi
                 fi;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
-
 function MitM_WEB {
     clear
     PS3=">>MitM WEB>>"
@@ -1115,11 +1174,16 @@ function MitM_WEB {
                 clear
                 config_iptables;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
-
 function config_iptables {
     PS3=">>MitM WEB>>config iptables>>"
     select option in "creat iptables rules" "delete ip tables rules" "list ip tables" "Exit"
@@ -1146,6 +1210,13 @@ function config_iptables {
                     iptables -t nat -A PREROUTING -i $interface -p tcp --dport 443 -j REDIRECT --to-port 8080
                     iptables -t nat -L
                     echo ""
+                else
+                    printf 'destination port ?'
+                    read dport
+                    printf 'forward to port ?'
+                    read toport
+                    iptables -t nat -A PREROUTING -i $interface -p tcp --dport $dport -j REDIRECT --to-port $toport
+                    iptables -t nat -L
                 fi;;
             "delete ip tables rules")
                 clear
@@ -1156,15 +1227,13 @@ function config_iptables {
                 until [ $a -eq 1 ]
                 do
                     echo ""
-                    printf 'which number of rule you want to delete ?'
+                    printf 'type in number to delete rule or exit?'
                     read num
-                    iptables -t nat --delete PREROUTING $num
-                    clear
-                    iptables -t nat -L PREROUTING --line-numbers
-                    echo ""
-                    printf 'do you wanna keep delete rules ? (Y/n)'
-                    read answer
-                    if [ "$answer" == "${answer#[Yy]}" ] && [ "$answer" != '' ] ;then
+                    if [ "$num" != "exit" ] ;then
+                        iptables -t nat --delete PREROUTING $num
+                        clear
+                        iptables -t nat -L PREROUTING --line-numbers
+                    else
                         a=1
                     fi
                 done;;
@@ -1173,11 +1242,16 @@ function config_iptables {
                 iptables -t nat -L
                 echo "";;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
-
 function Base64 {
     clear
     PS3=">>Base 64 codec>>"
@@ -1261,12 +1335,16 @@ function Base64 {
                     fi
                 fi;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }   
-
-
 function DHCP_monitor {
     clear
     ifconfig
@@ -1282,7 +1360,6 @@ function DHCP_monitor {
     tcpdump -i $Interface port 67 or port 68 -e -n -v
     
 }
-
 function AP_v3.1 {
     clear
     echo '--------------------------------------'
@@ -1317,7 +1394,6 @@ function AP_v3.1 {
         echo Done
     fi
 }
-
 function Sslsplit {
     clear
     echo '--------------------------------------'
@@ -1348,7 +1424,6 @@ function Sslsplit {
         echo "store as $log_file"
     fi
 }
-
 function BaseStation {
     clear
     PS3=">>BaseStation>>"
@@ -1382,11 +1457,16 @@ function BaseStation {
                     sshpass -p onwardsecurity#24572886 ssh lte@192.168.20.85
                 fi;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
-
 function Yersinia {
     clear
     PS3=">>Yersinia>>"
@@ -1460,11 +1540,16 @@ function Yersinia {
                     echo Done
                 fi;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
-
 function Del_Test_Data {
     clear
     PS3=">>delete test data>>"
@@ -1512,11 +1597,16 @@ function Del_Test_Data {
                     rm -r /home/kali/Desktop/testdata/sslsplit/*
                 fi;;
             *)
-                $REPLY;;
+                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
         esac
     done
 }
-
 function String_search {
     clear
     echo '--------------------------------------'
@@ -1622,7 +1712,6 @@ function String_search {
         echo Done
     fi
 }
-
 function logo {
     echo "
     ███╗░░░███╗░█████╗░██████╗░███████╗  ██████╗░██╗░░░██╗  ███╗░░██╗░█████╗░████████╗███████╗   █▀██═╗
@@ -1730,7 +1819,13 @@ function home {
             clear
             Del_Test_Data;;
         *)
-            any_command;;
+            if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                a=${PS3%>>*}
+                PS3=${a%>>*}">>"
+                return
+            else
+                any_command
+            fi;;
     esac
     done
     clear
@@ -1745,6 +1840,9 @@ function any_command {
     elif [ "$command" == 'cd' ];then
         $REPLY
         echo -e "\033[32m $(pwd)\033[0m"
+    elif [ "$command" == 'exit' ];then
+        clear
+        return | return
     else
         $REPLY
     fi
