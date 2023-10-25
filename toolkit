@@ -1832,12 +1832,13 @@ function home {
 }
 
 function resize {
-    xrandr -d :0 --output Virtual1 --mode 1920x
+    xrandr -d :0 --output Virtual1 --mode 1920x1080
 }
 
 function upgrade {
     rm -R toolkit >> /dev/null 2>&1
     git clone https://github.com/SunPeijing/toolkit.git 
+    sed -i -e 's/\r$//' toolkit/toolkit
     cp toolkit/toolkit /bin/toolkit 
     rm -R toolkit
 }
