@@ -1835,14 +1835,21 @@ function resize {
     xrandr -d :0 --output Virtual1 --mode 1920x1080
 }
 
+function upgrade {
+    git clone https://github.com/SunPeijing/toolkit.git 
+    cp toolkit/toolkit /bin/toolkit 
+    rm -R toolkit
+}
+
+
 function any_command {
     command=$(echo $REPLY | sed 's/^[ \t]*//g' | cut -d " " -f 1)
     if [ "$command" == 'ls' ];then
-        echo -e "\033[32m $(pwd):\033[0m"
+        echo -e "\033[32m$(pwd):\033[0m"
         $REPLY
     elif [ "$command" == 'cd' ];then
         $REPLY
-        echo -e "\033[32m $(pwd)\033[0m"
+        echo -e "\033[32m$(pwd)\033[0m"
     else
         $REPLY
     fi
