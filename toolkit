@@ -50,7 +50,7 @@ function Python {
                         echo Done
                 fi;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -96,7 +96,7 @@ function IPv6 {
                 echo IPv6_Fuzz
                 echo '--------------------------------------';;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -407,7 +407,7 @@ function IPv6_DoS {
                     echo Done
                 fi;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -432,7 +432,7 @@ function IPv4 {
                 echo ">>IPv4>>DoS"
                 IPv4_DoS;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -613,7 +613,7 @@ function IPv4_DoS {
                     echo Done
                 fi;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -709,7 +709,7 @@ function TestSSL {
                     echo Done
                 fi;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -834,7 +834,7 @@ function OpenSSL {
                     echo Done
                 fi;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -958,7 +958,7 @@ function Nmap {
                     echo Done
                 fi;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -1045,7 +1045,7 @@ function Iperf3 {
                     fi
                 fi;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -1080,7 +1080,7 @@ function Curl {
                     fi
                 fi;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -1174,7 +1174,7 @@ function MitM_WEB {
                 clear
                 config_iptables;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -1242,7 +1242,7 @@ function config_iptables {
                 iptables -t nat -L
                 echo "";;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -1335,7 +1335,7 @@ function Base64 {
                     fi
                 fi;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -1457,7 +1457,7 @@ function BaseStation {
                     sshpass -p onwardsecurity#24572886 ssh lte@192.168.20.85
                 fi;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -1540,7 +1540,7 @@ function Yersinia {
                     echo Done
                 fi;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -1597,7 +1597,7 @@ function Del_Test_Data {
                     rm -r /home/kali/Desktop/testdata/sslsplit/*
                 fi;;
             *)
-                if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+                if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                     a=${PS3%>>*}
                     PS3=${a%>>*}">>"
                     return
@@ -1819,7 +1819,7 @@ function home {
             clear
             Del_Test_Data;;
         *)
-            if [ '$REPLY'=='exit' ] || [ '$REPLY'=='e' ] || [ '$REPLY'=='back' ];then
+            if [ '$REPLY' == 'exit' ] || [ '$REPLY' == 'e' ] || [ '$REPLY' == 'back' ];then
                 a=${PS3%>>*}
                 PS3=${a%>>*}">>"
                 return
@@ -1831,6 +1831,9 @@ function home {
     clear
 }
 
+function resize {
+    xrandr -d :0 --output Virtual1 --mode 1920x1080
+}
 
 function any_command {
     command=$(echo $REPLY | sed 's/^[ \t]*//g' | cut -d " " -f 1)
@@ -1840,9 +1843,6 @@ function any_command {
     elif [ "$command" == 'cd' ];then
         $REPLY
         echo -e "\033[32m $(pwd)\033[0m"
-    elif [ "$command" == 'exit' ];then
-        clear
-        return | return
     else
         $REPLY
     fi
