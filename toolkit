@@ -1728,7 +1728,7 @@ function home {
     logo
     echo ""
     PS3=">>"
-    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "enable/disable SSH" "BaseStation" "Base 64 codec" "delete test data" "Exit"
+    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "enable/disable SSH" "BaseStation" "Base 64 codec" "delete test data" "upgrade" "Exit"
     do
         case $option in
         "Exit")
@@ -1818,6 +1818,9 @@ function home {
         "delete test data")
             clear
             Del_Test_Data;;
+        "upgrade")
+            clear
+            upgrade;;
         *)
             if [ "$REPLY" == 'exit' ] || [ "$REPLY" == 'e' ] || [ "$REPLY" == 'back' ];then
                 a=${PS3%>>*}
