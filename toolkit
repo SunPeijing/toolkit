@@ -482,7 +482,7 @@ function IPv4_DoS {
                 read answer
                 if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
                     a=$(pwd)
-                    cd /home/kali/Desktop/tools/third-party-tools/zarp
+                    cd /home/kali/Desktop/tools/thitd-party-tools/zarp
                     py2 zarp.py
                     cd $a
                 else
