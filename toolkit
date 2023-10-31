@@ -1934,7 +1934,55 @@ function home {
 }
 
 function resize {
-    xrandr -d :0 --output Virtual1 --mode 1920x1080
+    clear
+    PS3=">>resize>>"
+    select option in "1920x1080" "1680x1050" "1600x1200" "1440x900" "1400x1050" "1360x768" "1280x1024" "1280x960" "1280x800" "1280x768" "1280x720" "1152x864" "1024x768" "800x600" "640x480" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "1920x1080")
+                xrandr -d :0 --output Virtual1 --mode 1920x1080;;
+            "1680x1050")
+                xrandr -d :0 --output Virtual1 --mode 1680x1050;;
+            "1600x1200")
+                xrandr -d :0 --output Virtual1 --mode 1600x1200;;
+            "1440x900")
+                xrandr -d :0 --output Virtual1 --mode 1440x900;;
+            "1400x1050")
+                xrandr -d :0 --output Virtual1 --mode 1400x1050;;
+            "1360x768")
+                xrandr -d :0 --output Virtual1 --mode 1360x768;;
+            "1280x1024")
+                xrandr -d :0 --output Virtual1 --mode 1280x1024;;
+            "1280x960")
+                xrandr -d :0 --output Virtual1 --mode 1280x960;;
+            "1280x800")
+                xrandr -d :0 --output Virtual1 --mode 1280x800;;
+            "1280x768")
+                xrandr -d :0 --output Virtual1 --mode 1280x768;;
+            "1280x720")
+                xrandr -d :0 --output Virtual1 --mode 1280x720;;
+            "1152x864")
+                xrandr -d :0 --output Virtual1 --mode 1152x864;;
+            "1024x768")
+                xrandr -d :0 --output Virtual1 --mode 1024x768;;
+            "800x600")
+                xrandr -d :0 --output Virtual1 --mode 800x600;;
+            "640x480")
+                xrandr -d :0 --output Virtual1 --mode 640x480;;
+            *)
+                if [ "$REPLY" == 'exit' ] || [ "$REPLY" == 'e' ] || [ "$REPLY" == 'back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
+        esac
+    done
 }
 
 function upgrade {
