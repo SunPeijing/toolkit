@@ -2021,6 +2021,8 @@ function resize {
                 clear
                 PS3=">>"
                 return;;
+            "2560x1440")
+                xrandr -d :0 --output Virtual1 --mode 2560x1440;;
             "1920x1080")
                 xrandr -d :0 --output Virtual1 --mode 1920x1080;;
             "1680x1050")
