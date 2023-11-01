@@ -1815,7 +1815,7 @@ function String_search {
 function Radius {
     clear
     PS3=">>Radius>>"
-    select option in "open server" "gen client certificate" "Exit"
+    select option in "open server" "gen client certificate" "management DB" "Exit"
     do
         case $option in
             "Exit")
@@ -1849,9 +1849,27 @@ function Radius {
                     fi
                     openssl req -new -keyout $file_path/cli_key.pem -out $file_path/cli_req.pem -config /usr/lib/ssl/openssl.cnf
                     openssl ca -config /usr/lib/ssl/openssl.cnf -policy policy_anything -out $file_path/cli_cert.pem -infiles $file_path/cli_req.pem
-                    openssl pkcs12 -export -in cli_cert.pem -inkey $file_path/cli_key.pem -out $file_path/cli_cert.p12 -clcerts
+                    openssl pkcs12 -export -in $file_path/cli_cert.pem -inkey $file_path/cli_key.pem -out $file_path/cli_cert.p12 -clcerts
                 fi
                 echo done;;
+
+            "management DB")
+                clear
+                cat -n /usr/lib/ssl/misc/demoCA/index.txt
+                a=0
+                until [ $a -eq 1 ]
+                do
+                    echo ""
+                    printf 'which user you want to delete??'
+                    read num
+                    if [ "$num" != "exit" ] ;then
+                        sed -i $num"d" /usr/lib/ssl/misc/demoCA/index.txt
+                        clear
+                        cat -n /usr/lib/ssl/misc/demoCA/index.txt
+                    else
+                        a=1
+                    fi
+                done;;
             *)
                 if [ "$REPLY" == 'exit' ] || [ "$REPLY" == 'e' ] || [ "$REPLY" == 'back' ];then
                     a=${PS3%>>*}
