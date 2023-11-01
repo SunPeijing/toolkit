@@ -1811,6 +1811,64 @@ function String_search {
         echo Done
     fi
 }
+
+function Radius {
+    clear
+    PS3=">>Radius>>"
+    select option in "open server" "gen client certificate" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "open server")
+                clear
+                echo '--------------------------------------'
+                echo command is "radiusd -X"
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    radiusd -X
+                fi;;
+            "gen client certificate")
+                clear
+                echo '--------------------------------------'
+                echo command is "openssl req -new -keyout cli_key.pem -out cli_req.pem -config /usr/lib/ssl/openssl.cnf"
+                echo command is "openssl ca -config /usr/lib/ssl/openssl.cnf -policy policy_anything -out cli_cert.pem -infiles cli_req.pem"
+                echo command is "openssl pkcs12 -export -in cli_cert.pem -inkey cli_key.pem -out cli_cert.p12 -clcerts"
+                echo '--------------------------------------'
+                printf 'gen client certificate (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    radiusd -X
+                    printf 'output file path (default %s): ' $(pwd)
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=$(pwd)
+                    fi
+                    openssl req -new -keyout $file_path/cli_key.pem -out $file_path/cli_req.pem -config /usr/lib/ssl/openssl.cnf
+                    openssl ca -config /usr/lib/ssl/openssl.cnf -policy policy_anything -out $file_path/cli_cert.pem -infiles $file_path/cli_req.pem
+                    openssl pkcs12 -export -in cli_cert.pem -inkey $file_path/cli_key.pem -out $file_path/cli_cert.p12 -clcerts
+                fi
+                echo done;;
+            *)
+                if [ "$REPLY" == 'exit' ] || [ "$REPLY" == 'e' ] || [ "$REPLY" == 'back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
+        esac
+    done
+}
+
+
+
+
+
 function logo {
     echo "
     ███╗░░░███╗░█████╗░██████╗░███████╗  ██████╗░██╗░░░██╗  ███╗░░██╗░█████╗░████████╗███████╗   █▀██═╗
@@ -1827,7 +1885,7 @@ function home {
     logo
     echo ""
     PS3=">>"
-    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "enable/disable SSH" "BaseStation" "Base 64 codec" "delete test data" "upgrade" "Exit"
+    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "enable/disable SSH" "BaseStation" "Base 64 codec" "radius server" "delete test data" "upgrade" "Exit"
     do
         case $option in
         "Exit")
@@ -1917,6 +1975,9 @@ function home {
         "delete test data")
             clear
             Del_Test_Data;;
+        "radius server")
+            clear
+            Radius;;
         "upgrade")
             clear
             upgrade;;
