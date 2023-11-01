@@ -1842,7 +1842,6 @@ function Radius {
                 printf 'gen client certificate (Y/n)? '
                 read answer
                 if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
-                    radiusd -X
                     printf 'output file path (default %s): ' $(pwd)
                     read file_path
                     if [ "$file_path" == "" ] ;then
