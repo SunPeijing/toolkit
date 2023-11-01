@@ -482,7 +482,7 @@ function IPv4_DoS {
                 read answer
                 if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
                     a=$(pwd)
-                    cd /home/kali/Desktop/tools/thitd-party-tools/zarp
+                    cd /home/kali/Desktop/tools/third-party-tools/zarp
                     py2 zarp.py
                     cd $a
                 else
@@ -636,7 +636,7 @@ function TestSSL {
             "-e : checks each cipher suite")
                 clear
                 echo '--------------------------------------'
-                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/thitd-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh"'
                 echo 'command is "bash testssl.sh -e $target"'
                 echo '--------------------------------------'
                 printf 'run this command (Y/n)? '
@@ -651,7 +651,7 @@ function TestSSL {
                     elif [ "$file_path" == "pwd" ] ;then
                         file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_e
                     fi
-                    bash /home/kali/Desktop/tools/OnwardTools/thitd-party-tools/testssl_3.0.7.sh/testssl.sh -e $target | tee $file_path
+                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -e $target | tee $file_path
                     echo ""
                     echo ""
                     echo "store as $file_path"
@@ -661,7 +661,7 @@ function TestSSL {
             "-p : checks TLS/SSL portocol")
                 clear
                 echo '--------------------------------------'
-                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/thitd-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh"'
                 echo 'command is "bash testssl.sh -p $target"'
                 echo '--------------------------------------'
                 printf 'run this command (Y/n)? '
@@ -676,7 +676,7 @@ function TestSSL {
                     elif [ "$file_path" == "pwd" ] ;then
                         file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_p
                     fi
-                    bash /home/kali/Desktop/tools/OnwardTools/thitd-party-tools/testssl_3.0.7.sh/testssl.sh -p $target | tee $file_path
+                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -p $target | tee $file_path
                     echo ""
                     echo ""
                     echo "store as $file_path"
@@ -686,7 +686,7 @@ function TestSSL {
             "-f : checks forward secrecy settings")
                 clear
                 echo '--------------------------------------'
-                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/thitd-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh"'
                 echo 'command is "bash testssl.sh -f $target"'
                 echo '--------------------------------------'
                 printf 'run this command (Y/n)? '
@@ -701,7 +701,7 @@ function TestSSL {
                     elif [ "$file_path" == "pwd" ] ;then
                         file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_f
                     fi
-                    bash /home/kali/Desktop/tools/OnwardTools/thitd-party-tools/testssl_3.0.7.sh/testssl.sh -f $target | tee $file_path
+                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -f $target | tee $file_path
                     echo ""
                     echo ""
                     echo "store as $file_path"
