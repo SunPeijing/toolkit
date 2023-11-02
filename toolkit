@@ -1921,7 +1921,7 @@ function Rsyslog {
                 fi
                 echo done;;
 
-            "management DB")
+            "clear log")
                 clear
                 echo "" > /var/log/remotelog
                 ;;
