@@ -1903,9 +1903,10 @@ function Rsyslog {
                 read answer
                 if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
                     systemctl restart rsyslog
+                    echo "---------------netstat----------------------"
                     netstat -lupnt
                     echo ""
-                    echo ""
+                    echo "-----------rsyslog status-------------------"
                     service rsyslog status
                 fi;;
             "monitor log")
