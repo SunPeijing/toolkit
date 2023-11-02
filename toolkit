@@ -1814,7 +1814,7 @@ function String_search {
 
 function Radius {
     clear
-    PS3=">>Radius>>"
+    PS3=">>radius server>>"
     select option in "open server" "gen client certificate" "management DB" "Exit"
     do
         case $option in
@@ -1882,7 +1882,60 @@ function Radius {
     done
 }
 
+function Rsyslog {
+    clear
+    PS3=">>rsyslog server>>"
+    select option in "open server" "monitor log" "clear log" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "open server")
+                clear
+                echo '--------------------------------------'
+                echo open server command is "systemctl restart rsyslog"
+                echo check server status command is "service rsyslog status"
+                echo 'also you can check netstat port 514 by command "netstat -lupnt"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    systemctl restart rsyslog
+                    netstat -lupnt
+                    echo ""
+                    echo ""
+                    service rsyslog status
+                fi;;
+            "monitor log")
+                clear
+                echo '--------------------------------------'
+                echo log file is /var/log/remotelog
+                echo '--------------------------------------'
+                printf 'cat all log messages (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    cat /var/log/remotelog
+                    tail -f /var/log/remotelog
+                fi
+                echo done;;
 
+            "management DB")
+                clear
+                echo "" > /var/log/remotelog
+                ;;
+            *)
+                if [ "$REPLY" == 'exit' ] || [ "$REPLY" == 'e' ] || [ "$REPLY" == 'back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
+        esac
+    done
+}
 
 
 
@@ -1902,7 +1955,7 @@ function home {
     logo
     echo ""
     PS3=">>"
-    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "enable/disable SSH" "BaseStation" "Base 64 codec" "radius server" "delete test data" "upgrade" "Exit"
+    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "enable/disable SSH" "BaseStation" "Base 64 codec" "radius server" "rsyslog server" "delete test data" "upgrade" "Exit"
     do
         case $option in
         "Exit")
@@ -1995,6 +2048,9 @@ function home {
         "radius server")
             clear
             Radius;;
+        "rsyslog server")
+            clear
+            Rsyslog;;
         "upgrade")
             clear
             upgrade;;
