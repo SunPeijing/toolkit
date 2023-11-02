@@ -1901,12 +1901,13 @@ function Rsyslog {
                 echo '--------------------------------------'
                 printf 'run this command (Y/n)? '
                 read answer
-                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    clear 
                     systemctl restart rsyslog
-                    echo "---------------netstat----------------------"
+                    echo -e "\033[32m---------------netstat----------------------\033[0m"
                     netstat -lupnt
                     echo ""
-                    echo "-----------rsyslog status-------------------"
+                    echo "\033[32m-----------rsyslog status-------------------\033[0m"
                     service rsyslog status
                 fi;;
             "monitor log")
