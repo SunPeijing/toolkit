@@ -974,7 +974,6 @@ function Nmap {
                 else
                     echo Done
                 fi;;
-                ;;
             *)
                 if [ "$REPLY" == 'exit' ] || [ "$REPLY" == 'e' ] || [ "$REPLY" == 'back' ];then
                     a=${PS3%>>*}
