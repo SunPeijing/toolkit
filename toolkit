@@ -845,7 +845,7 @@ function OpenSSL {
 function Nmap {
     clear
     PS3=">>Nmap>>"
-    select option in "TCP all port scan" "UDP all port scan" "UDP check specific port" "SSH cipher suite" "rtsp URL brute" "Exit"
+    select option in "TCP all port scan" "UDP all port scan" "UDP check specific port" "SSH cipher suite" "rtsp URL brute" "list all script" "Exit"
     do
         case $option in
             "Exit")
@@ -971,6 +971,18 @@ function Nmap {
                         port="554"
                     fi
                     nmap --script rtsp-url-brute -p $port $target
+                else
+                    echo Done
+                fi;;
+            "list all script")
+                clear
+                echo '--------------------------------------'
+                echo "script store in /usr/share/nmap/scripts"
+                echo '--------------------------------------'
+                printf 'list all script? (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    ls /usr/share/nmap/scripts
                 else
                     echo Done
                 fi;;
