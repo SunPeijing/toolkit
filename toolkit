@@ -472,10 +472,8 @@ function IPv4_DoS {
                 echo '--------------------------------------'
                 echo 'tool path is "/home/kali/Desktop/tools/third-party-tools/zarp/zarp.py"'
                 echo command is "py2 zarp.py"
-                echo "usage: input 2"
-                echo "       input 4"
-                echo "       input 1"
-                echo "       input target_ip"
+                echo "usage: input 2 4"
+                echo "       input 1 target_ip"
                 echo "       input r"
                 echo '--------------------------------------'
                 printf 'run this command (Y/n)? '
