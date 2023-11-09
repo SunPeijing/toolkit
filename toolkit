@@ -1382,7 +1382,7 @@ function DHCP_monitor {
     printf 'whitch Interface in a same net as DUT (default eth0)? '
     read Interface
     if [ "$Interface" == '' ];then
-        Interface = "eth0"
+        Interface ="eth0"
     fi
     echo ""
     echo "-------------------------------------"
