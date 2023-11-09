@@ -1379,8 +1379,11 @@ function DHCP_monitor {
     ifconfig
     echo ""
     echo "-------------------------------------"
-    printf 'whitch Interface in a same net as DUT? '
+    printf 'whitch Interface in a same net as DUT (default eth0)? '
     read Interface
+    if [ "$Interface" == '' ];then
+        Interface = "eth0"
+    fi
     echo ""
     echo "-------------------------------------"
     echo "monitoring DHCP port 67,68 traffic on "
