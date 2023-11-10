@@ -1379,10 +1379,14 @@ function DHCP_monitor {
     ifconfig
     echo ""
     echo "-------------------------------------"
+    echo ""
+    echo 'command is "tcpdump -i $Interface port 67 or port 68 -e -n -v"'
+    echo ""
+    echo "-------------------------------------"
     printf 'whitch Interface in a same net as DUT (default eth0)? '
     read Interface
     if [ "$Interface" == '' ];then
-        Interface="eth0"
+        Interface="eth0":
     fi
     echo ""
     echo "-------------------------------------"
