@@ -649,7 +649,7 @@ function TestSSL {
                     elif [ "$file_path" == "pwd" ] ;then
                         file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_e
                     fi
-                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -e $target | tee $file_path
+                    bash '/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -e $target | tee $file_path'
                     echo ""
                     echo ""
                     echo "store as $file_path"
