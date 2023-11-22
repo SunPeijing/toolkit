@@ -1873,6 +1873,20 @@ function String_search {
     fi
 }
 
+function check_debug_symbol {
+    clear
+    echo '--------------------------------------'
+    echo 'bash /home/kali/Desktop/tools/OnwardTools/Script/CheckDebugSymbol.sh $directory'
+    echo '--------------------------------------'
+    printf 'run this command (Y/n)? '
+    read answer
+    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+    	printf 'please input the file directory :'
+        read directory
+        bash /home/kali/Desktop/tools/OnwardTools/Script/CheckDebugSymbol.sh $directory
+    fi
+}
+
 function Radius {
     clear
     PS3=">>radius server>>"
@@ -2018,7 +2032,7 @@ function home {
     logo
     echo ""
     PS3=">>"
-    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "enable/disable SSH" "BaseStation" "Base 64 codec" "radius server" "rsyslog server" "delete test data" "upgrade" "Exit"
+    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "check debug symbol" "enable/disable SSH" "BaseStation" "Base 64 codec" "radius server" "rsyslog server" "delete test data" "upgrade" "Exit"
     do
         case $option in
         "Exit")
@@ -2094,6 +2108,9 @@ function home {
         "string search")
             clear
             String_search;;
+        "check debug symbol")
+            clear
+            check_debug_symbol;;
         "BaseStation")
             clear
             BaseStation;;
