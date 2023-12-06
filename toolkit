@@ -1713,7 +1713,7 @@ function Yersinia {
 function Del_Test_Data {
     clear
     PS3=">>delete test data>>"
-    select option in "Test SSL" "onvif Test" "openSSL" "sslsplit" "Exit"
+    select option in "Test SSL" "onvif Test" "openSSL" "sslsplit" "string search" "Exit"
     do
         case $option in
             "Exit")
@@ -1738,6 +1738,7 @@ function Del_Test_Data {
                 if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
                     rm -r /home/kali/Desktop/tools/OnwardTools/onvif_test/output/*
                 fi;;
+                
             "openSSL")
                 clear
                 find /home/kali/Desktop/testdata/openssl/ -type f | cut -d "/" -f 7-
@@ -1756,6 +1757,17 @@ function Del_Test_Data {
                 if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
                     rm -r /home/kali/Desktop/testdata/sslsplit/*
                 fi;;
+
+            "string search")
+                clear
+                find /home/kali/Desktop/testdata/string_search/ -type f | cut -d "/" -f 7-
+                echo ""
+                printf 'clear all test data (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    rm -r /home/kali/Desktop/testdata/sslsplit/*
+                fi;;
+
             *)
                 if [ "$REPLY" == 'exit' ] || [ "$REPLY" == 'e' ] || [ "$REPLY" == 'back' ];then
                     a=${PS3%>>*}
