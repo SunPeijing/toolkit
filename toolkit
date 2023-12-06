@@ -1765,7 +1765,7 @@ function Del_Test_Data {
                 printf 'clear all test data (Y/n)? '
                 read answer
                 if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
-                    rm -r /home/kali/Desktop/testdata/sslsplit/*
+                    rm -r /home/kali/Desktop/testdata/string_search/*
                 fi;;
 
             *)
