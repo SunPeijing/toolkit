@@ -1800,11 +1800,16 @@ function String_search {
                 echo ""
                 echo ""
                 echo $file "find IPv6"
+                touch /home/kali/Desktop/testdata/string_search/IPv6
+                echo "" >> /home/kali/Desktop/testdata/string_search/IPv6
+                echo "" >> /home/kali/Desktop/testdata/string_search/IPv6
+                echo $file "find IPv6" >> /home/kali/Desktop/testdata/string_search/IPv6
             	for find_string in $find_string_list
             	do 
                     line=$(echo $find_string | cut -d ":" -f 1 )
                     find_string=$(echo $find_string | cut -d ":" -f 2- | sed "s/♞/ /g")
                     echo -e "\033[32mline $line:\033[0m\033[31m $find_string\033[0m"
+                    echo "line $line: $find_string" >> /home/kali/Desktop/testdata/string_search/IPv6
             	done 
             fi
             find_string_list=""
@@ -1813,11 +1818,16 @@ function String_search {
                 echo ""
                 echo ""
                 echo $file "find IPv4"
+                touch /home/kali/Desktop/testdata/string_search/IPv4
+                echo "" >> /home/kali/Desktop/testdata/string_search/IPv4
+                echo "" >> /home/kali/Desktop/testdata/string_search/IPv4
+                echo $file "find IPv4" >> /home/kali/Desktop/testdata/string_search/IPv4
             	for find_string in $find_string_list
             	do 
                     line=$(echo $find_string | cut -d ":" -f 1 )
                     find_string=$(echo $find_string | cut -d ":" -f 2- | sed "s/♞/ /g")
                     echo -e "\033[32mline $line:\033[0m\033[31m $find_string\033[0m"
+                    echo "line $line: $find_string" >> /home/kali/Desktop/testdata/string_search/IPv4
             	done
             fi
             find_string_list=""
@@ -1826,11 +1836,16 @@ function String_search {
                 echo ""
                 echo ""
                 echo $file "find URL"
+                touch /home/kali/Desktop/testdata/string_search/URL
+                echo "" >> /home/kali/Desktop/testdata/string_search/URL
+                echo "" >> /home/kali/Desktop/testdata/string_search/URL
+                echo $file "find URL" >> /home/kali/Desktop/testdata/string_search/URL
             	for find_string in $find_string_list
             	do 
                     line=$(echo $find_string | cut -d ":" -f 1 )
                     find_string=$(echo $find_string | cut -d ":" -f 2- | sed "s/♞/ /g")
                     echo -e "\033[32mline $line:\033[0m\033[31m $find_string\033[0m"
+                    echo "line $line: $find_string" >> /home/kali/Desktop/testdata/string_search/URL
             	done 
             fi
             find_string_list=""
@@ -1839,11 +1854,16 @@ function String_search {
                 echo ""
                 echo ""
                 echo $file "find mail address"
+                touch /home/kali/Desktop/testdata/string_search/mail
+                echo "" >> /home/kali/Desktop/testdata/string_search/mail
+                echo "" >> /home/kali/Desktop/testdata/string_search/mail
+                echo $file "find mail address" >> /home/kali/Desktop/testdata/string_search/mail
             	for find_string in $find_string_list
             	do 
                     line=$(echo $find_string | cut -d ":" -f 1 )
                     find_string=$(echo $find_string | cut -d ":" -f 2- | sed "s/♞/ /g")
                     echo -e "\033[32mline $line:\033[0m\033[31m $find_string\033[0m"
+                    echo "line $line: $find_string" >> /home/kali/Desktop/testdata/string_search/mail
             	done 
             fi
             find_string_list=""
@@ -1855,11 +1875,16 @@ function String_search {
                     echo ""
                     echo ""
                     echo $file "find $wanna_find"
+                    touch /home/kali/Desktop/testdata/string_search/$wanna_find
+                    echo "" >> /home/kali/Desktop/testdata/string_search/$wanna_find
+                    echo "" >> /home/kali/Desktop/testdata/string_search/$wanna_find
+                    echo $file "find $wanna_find" >> /home/kali/Desktop/testdata/string_search/$wanna_find
                     for find_string in $find_string_list
                     do 
                         line=$(echo $find_string | cut -d ":" -f 1 )
                     find_string=$(echo $find_string | cut -d ":" -f 2- | sed "s/♞/ /g")
                     echo -e "\033[32mline $line:\033[0m\033[31m $find_string\033[0m"
+                    echo "line $line: $find_string" >> /home/kali/Desktop/testdata/string_search/$wanna_find
                     done 
                 fi
                 find_string_list=""
