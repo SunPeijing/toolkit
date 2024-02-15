@@ -464,7 +464,8 @@ function IPv4_DoS {
                     printf 'target: '
                     read target
                     ping -f -s 65507 -c 6000 $target
-                    sleep 3
+                    echo "wait 10 sec then check the DUT status"
+                    sleep 10
                     ping -c 4 $target
                 else
                     echo Done
