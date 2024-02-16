@@ -620,14 +620,14 @@ function IPv4_DoS {
                     return
                 else
                     any_command
-                fi;;
+                fi;;-
         esac
     done
 }
 function TestSSL {
     clear
     PS3=">>Test SSL>>"
-    select option in "-e : checks each cipher suite" "-p : checks TLS/SSL portocol" "-f : checks forward secrecy settings" "-U : tests all vulnerabilities" "Exit"
+    select option in "-e : checks each cipher suite" "-p : checks TLS/SSL portocol" "-f : checks forward secrecy settings" "-U : tests all vulnerabilities" "-S" "Exit"
     do
         case $option in
             "Exit")
