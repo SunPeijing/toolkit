@@ -627,7 +627,7 @@ function IPv4_DoS {
 function TestSSL {
     clear
     PS3=">>Test SSL>>"
-    select option in "-e : checks each cipher suite" "-p : checks TLS/SSL portocol" "-f : checks forward secrecy settings" "-U : tests all vulnerabilities" "-S" "-H" "Exit"
+    select option in "-e : checks each cipher suite" "-p : checks TLS/SSL portocol" "-f : checks forward secrecy settings" "-U : tests all vulnerabilities" "-S" "-H" "-I" "Exit"
     do
         case $option in
             "Exit")
@@ -778,6 +778,31 @@ function TestSSL {
                         file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_H
                     fi
                     bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -H $target | tee $file_path
+                    echo ""
+                    echo ""
+                    echo "store as $file_path"
+                else
+                    echo Done
+                fi;;
+            "-I")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'command is "bash testssl.sh -I $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/testssl/): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/testssl/$(date +"20%y%m%d_%H:%M:%S_")$target\_I
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_I
+                    fi
+                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -I $target | tee $file_path
                     echo ""
                     echo ""
                     echo "store as $file_path"
