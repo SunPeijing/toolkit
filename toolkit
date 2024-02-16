@@ -627,7 +627,7 @@ function IPv4_DoS {
 function TestSSL {
     clear
     PS3=">>Test SSL>>"
-    select option in "-e : checks each cipher suite" "-p : checks TLS/SSL portocol" "-f : checks forward secrecy settings" "-U : tests all vulnerabilities" "-S" "-H" "-I" "-F" "Exit"
+    select option in "-e : checks each cipher suite" "-p : checks TLS/SSL portocol" "-f : checks forward secrecy settings" "-U : tests all vulnerabilities" "-S" "-H" "-I" "-F" "-O" "-R" "-C" "-A" "-J" "-D" "-L" "-BB" "-W" "Exit"
     do
         case $option in
             "Exit")
@@ -828,6 +828,231 @@ function TestSSL {
                         file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_F
                     fi
                     bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -F $target | tee $file_path
+                    echo ""
+                    echo ""
+                    echo "store as $file_path"
+                else
+                    echo Done
+                fi;;
+            "-O")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'command is "bash testssl.sh -O $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/testssl/): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/testssl/$(date +"20%y%m%d_%H:%M:%S_")$target\_O
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_O
+                    fi
+                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -O $target | tee $file_path
+                    echo ""
+                    echo ""
+                    echo "store as $file_path"
+                else
+                    echo Done
+                fi;;
+            "-R")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'command is "bash testssl.sh -R $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/testssl/): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/testssl/$(date +"20%y%m%d_%H:%M:%S_")$target\_R
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_R
+                    fi
+                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -R $target | tee $file_path
+                    echo ""
+                    echo ""
+                    echo "store as $file_path"
+                else
+                    echo Done
+                fi;;
+            "-C")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'command is "bash testssl.sh -C $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/testssl/): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/testssl/$(date +"20%y%m%d_%H:%M:%S_")$target\_C
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_C
+                    fi
+                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -C $target | tee $file_path
+                    echo ""
+                    echo ""
+                    echo "store as $file_path"
+                else
+                    echo Done
+                fi;;
+            "-A")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'command is "bash testssl.sh -A $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/testssl/): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/testssl/$(date +"20%y%m%d_%H:%M:%S_")$target\_A
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_A
+                    fi
+                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -A $target | tee $file_path
+                    echo ""
+                    echo ""
+                    echo "store as $file_path"
+                else
+                    echo Done
+                fi;;
+            "-J")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'command is "bash testssl.sh -J $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/testssl/): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/testssl/$(date +"20%y%m%d_%H:%M:%S_")$target\_J
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_J
+                    fi
+                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -J $target | tee $file_path
+                    echo ""
+                    echo ""
+                    echo "store as $file_path"
+                else
+                    echo Done
+                fi;;
+            "-D")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'command is "bash testssl.sh -D $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/testssl/): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/testssl/$(date +"20%y%m%d_%H:%M:%S_")$target\_D
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_D
+                    fi
+                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -D $target | tee $file_path
+                    echo ""
+                    echo ""
+                    echo "store as $file_path"
+                else
+                    echo Done
+                fi;;
+            "-L")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'command is "bash testssl.sh -L $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/testssl/): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/testssl/$(date +"20%y%m%d_%H:%M:%S_")$target\_L
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_L
+                    fi
+                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -L $target | tee $file_path
+                    echo ""
+                    echo ""
+                    echo "store as $file_path"
+                else
+                    echo Done
+                fi;;
+            "-BB")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'command is "bash testssl.sh -BB $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/testssl/): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/testssl/$(date +"20%y%m%d_%H:%M:%S_")$target\_BB
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_BB
+                    fi
+                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -BB $target | tee $file_path
+                    echo ""
+                    echo ""
+                    echo "store as $file_path"
+                else
+                    echo Done
+                fi;;
+            "-W")
+                clear
+                echo '--------------------------------------'
+                echo 'tool path "/home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh"'
+                echo 'command is "bash testssl.sh -W $target"'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'target: '
+                    read target
+                    printf 'output file path (default /home/kali/Desktop/testdata/testssl/): '
+                    read file_path
+                    if [ "$file_path" == "" ] ;then
+                        file_path=/home/kali/Desktop/testdata/testssl/$(date +"20%y%m%d_%H:%M:%S_")$target\_W
+                    elif [ "$file_path" == "pwd" ] ;then
+                        file_path=$(pwd)/$(date +"20%y%m%d_%H:%M:%S_")$target\_W
+                    fi
+                    bash /home/kali/Desktop/tools/OnwardTools/third-party-tools/testssl_3.0.7.sh/testssl.sh -W $target | tee $file_path
                     echo ""
                     echo ""
                     echo "store as $file_path"
