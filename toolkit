@@ -620,7 +620,7 @@ function IPv4_DoS {
                     return
                 else
                     any_command
-                fi;;-
+                fi;;
         esac
     done
 }
