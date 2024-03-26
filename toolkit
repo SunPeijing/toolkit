@@ -2358,8 +2358,8 @@ function Rsyslog {
                 printf 'cat all log messages (Y/n)? '
                 read answer
                 if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
-                    cat /var/log/remotelog
-                    tail -f /var/log/remotelog
+                    cat /var/log/remotelog | grep -v kali
+                    tail -f /var/log/remotelog | grep -v kali
                 fi
                 echo done;;
 
