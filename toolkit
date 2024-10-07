@@ -2483,7 +2483,7 @@ function home {
             clear
             echo '--------------------------------------'
             echo 'tool path "/opt/metasploit-framework/bin/msfconsole"'
-            echo 'PoC path "/usr/share/exploitdb/"
+            echo 'PoC path "/usr/share/exploitdb/"'
             echo '--------------------------------------'
             printf 'run this tool (Y/n)? '
             read answer
