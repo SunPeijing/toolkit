@@ -2122,9 +2122,9 @@ function String_search {
         printf 'only display match part (Y/n)? '
     	read answer
     	if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
-    	    grep_argv='ainEo'
+    	    grep_argv='ainrEo'
     	else
-            grep_argv='ainE'
+            grep_argv='ainrE'
     	fi
         printf 'file or path (default %s):' "$PWD"
         read path
