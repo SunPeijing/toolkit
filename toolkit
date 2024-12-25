@@ -2189,7 +2189,7 @@ function String_search {
             	done 
             fi
             find_string_list=""
-            find_string_list=$(strings $file | grep -$grep_argv "\b.com|.net|.info|.biz|.name|.pro|.aero|.asia|.cat|.coop|.edu|.gov|.int|.jobs|.mil|.mobi|.museum|.post|.tel|.travel|.xxx\b" | sed "s/ /♞/g")
+            find_string_list=$(strings $file | grep -$grep_argv "\b\.com|\.net|\.info|\.biz|\.name|\.pro|\.aero|\.asia|\.cat|\.coop|\.edu|\.gov|\.int|\.jobs|\.mil|\.mobi|\.museum|\.post|\.tel|\.travel|\.xxx\b" | sed "s/ /♞/g")
             if [ "$find_string_list" != '' ] ;then
                 echo ""
                 echo ""
