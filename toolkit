@@ -2110,6 +2110,12 @@ function Del_Test_Data {
 function String_search {
     clear
     echo '--------------------------------------'
+    echo 'IPv6 ： strings $file | grep -ainrE "\b[0-9a-fA-F]{1,4}:\w*:[0-9a-fA-F]{1,4}\w*\b"'
+    echo 'IPv4 ： strings $file | grep -ainrE "\b[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\b"'
+    echo 'URL  ： strings $file | grep -ainrE "\bhttps?\:\/\/.+\b"'
+    echo '        strings $file | grep -ainrE "\b\.com|\.net|\.info|\.biz|\.name|\.pro|\.aero|\.asia|\.cat|\.coop|\.edu|\.gov|\.int|\.jobs|\.mil|\.mobi|\.museum|\.post|\.tel|\.travel|\.xxx\b"'
+    echo 'Mail ： strings $file | grep -ainrE "\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b"'
+    echo '--------------------------------------'
     echo 'input a path or file.'
     echo 'this script will search all IPv4,IPv6,url and mail format'
     echo 'you can type in another strings what you want to search(using " " separate)'
