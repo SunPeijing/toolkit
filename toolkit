@@ -2255,9 +2255,9 @@ function check_debug_symbol {
 function checksec_func {
     clear
     echo '--------------------------------------'
-    echo "for i in `find ${Path} ! -type p`;do checksec file ${i} | awk '/^RELRO/{header=$0; next} header {print $0}' | sed 's/\s\{2,\}/,/g' >> ./checksec_output.csv;done"
-    echo "                ↑input                                                                                                                      ↑output"
-    echo "|     get all file name          |      checksec        |                              handle the output                           |     output file      |"
+    echo 'for i in `find ${Path} ! -type p`;do checksec file ${i} | awk "/^RELRO/{header=$0; next} header {print $0}" | sed "s/\s\{2,\}/,/g" >> ./checksec_output.csv;done'
+    echo '                ↑input                                                                                                                      ↑output'
+    echo '|     get all file name          |      checksec        |                              handle the output                           |     output file      |'
     echo '--------------------------------------'
     printf 'run this command (Y/n)? '
     read answer
