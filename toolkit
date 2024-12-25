@@ -2252,6 +2252,28 @@ function check_debug_symbol {
     fi
 }
 
+function checksec_func {
+    clear
+    echo '--------------------------------------'
+    echo "for i in `find ${Path} ! -type p`;do checksec file ${i} | awk '/^RELRO/{header=$0; next} header {print $0}' | sed 's/\s\{2,\}/,/g' >> ./checksec_output.csv;done"
+    echo "                ↑input                                                                                                                      ↑output"
+    echo "|     get all file name          |      checksec        |                              handle the output                           |     output file      |"
+    echo '--------------------------------------'
+    printf 'run this command (Y/n)? '
+    read answer
+    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+    	printf 'please input the file directory :'
+        read directory
+        a=$(pwd)
+        cd $directory
+        for i in `find . ! -type p`
+        do 
+            checksec file ${i} | awk '/^RELRO/{header=$0; next} header {print $0}' | sed 's/\s\{2,\}/,/g' >> $a/checksec_output.csv
+        done
+        cd $a
+    fi
+}
+
 function Radius {
     clear
     PS3=">>radius server>>"
@@ -2476,6 +2498,9 @@ function home {
         "check debug symbol")
             clear
             check_debug_symbol;;
+        "checksec")
+            clear
+            checksec_func;;
         "BaseStation")
             clear
             BaseStation;;
