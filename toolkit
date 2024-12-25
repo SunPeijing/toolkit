@@ -2189,6 +2189,24 @@ function String_search {
             	done 
             fi
             find_string_list=""
+            find_string_list=$(strings $file | grep -$grep_argv "\b.com|.net|.info|.biz|.name|.pro|.aero|.asia|.cat|.coop|.edu|.gov|.int|.jobs|.mil|.mobi|.museum|.post|.tel|.travel|.xxx\b" | sed "s/ /♞/g")
+            if [ "$find_string_list" != '' ] ;then
+                echo ""
+                echo ""
+                echo $file "find URL without prefix"
+                touch /home/kali/Desktop/testdata/string_search/URL_nonprefix
+                echo "" >> /home/kali/Desktop/testdata/string_search/URL_nonprefix
+                echo "" >> /home/kali/Desktop/testdata/string_search/URL_nonprefix
+                echo $file "find URL without prefix" >> /home/kali/Desktop/testdata/string_search/URL_nonprefix
+            	for find_string in $find_string_list
+            	do 
+                    line=$(echo $find_string | cut -d ":" -f 1 )
+                    find_string=$(echo $find_string | cut -d ":" -f 2- | sed "s/♞/ /g")
+                    echo -e "\033[32mline $line:\033[0m\033[31m $find_string\033[0m"
+                    echo "line $line: $find_string" >> /home/kali/Desktop/testdata/string_search/URL_nonprefix
+            	done 
+            fi
+            find_string_list=""
             find_string_list=$(strings $file | grep -$grep_argv "\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b" | sed "s/ /♞/g")
             if [ "$find_string_list" != '' ] ;then
                 echo ""
