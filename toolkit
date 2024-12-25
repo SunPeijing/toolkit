@@ -2270,7 +2270,9 @@ function checksec_func {
         do 
             checksec file ${i} | awk '/^RELRO/{header=$0; next} header {print $0}' | sed 's/\s\{2,\}/,/g' | tee -a $a/checksec_output.csv
         done
-        echo "$a/checksec_output.csv"
+        echo ""
+        echo ""
+        echo "output file : $a/checksec_output.csv"
         cd $a
     fi
 }
