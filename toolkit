@@ -2446,7 +2446,7 @@ function PoCs {
                 if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
                     printf 'please input the DUT_IP with Port :'
                     read target
-                    bash /root/go/bin/Terrapin-Scanner -connect $target
+                    /root/go/bin/Terrapin-Scanner -connect $target
                 else
                     echo Done
                 fi;;
