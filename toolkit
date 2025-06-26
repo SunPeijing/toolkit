@@ -2427,7 +2427,41 @@ function Rsyslog {
         esac
     done
 }
+function PoCs {
+    PS3=">>PoCs>>"
+    select option in "SSH_Terrapin-Scanner" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "SSH_Terrapin-Scanner")
+                clear
+                echo '--------------------------------------'
+                echo '/root/go/bin/Terrapin-Scanner -connect $DUT_IP:Port'
+                echo '--------------------------------------'
+                printf 'run this command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                    printf 'please input the DUT_IP with Port :'
+                    read target
+                    bash /root/go/bin/Terrapin-Scanner -connect $target
+                else
+                    echo Done
+                fi;;
 
+            *)
+                if [ "$REPLY" == 'exit' ] || [ "$REPLY" == 'e' ] || [ "$REPLY" == 'back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
+        esac
+    done
+}
 
 
 function logo {
@@ -2446,7 +2480,7 @@ function home {
     logo
     echo ""
     PS3=">>"
-    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "check debug symbol" "checksec" "enable/disable SSH" "BaseStation" "Metasploit" "Base 64 codec" "radius server" "rsyslog server" "delete test data" "upgrade" "Exit"
+    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "PoCs" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "check debug symbol" "checksec" "enable/disable SSH" "BaseStation" "Metasploit" "Base 64 codec" "radius server" "rsyslog server" "delete test data" "upgrade" "Exit"
     do
         case $option in
         "Exit")
@@ -2506,6 +2540,9 @@ function home {
         "DHCP monitor")
             clear
             DHCP_monitor;;
+        "PoCs")
+            clear
+            PoCs;;
         "AP_v3.1")
             clear
             AP_v3.1;;
