@@ -2576,7 +2576,7 @@ function home {
         "check debug symbol")
             clear
             check_debug_symbol;;
-        "scan ec curve")
+        "Scan EC Curve")
             clear
             Scan_EC_Curve;;
         "checksec")
@@ -2711,6 +2711,7 @@ function any_command {
 }
 
 home
+
 
 
 
