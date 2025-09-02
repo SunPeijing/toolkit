@@ -2276,6 +2276,20 @@ function check_debug_symbol {
     fi
 }
 
+function Scan_EC_Curve {
+    clear
+    echo '--------------------------------------'
+    echo 'py3 /home/kali/Desktop/tools/OnwardTools/Script/scan_ec_curve_oids.py $directory'
+    echo '--------------------------------------'
+    printf 'run this command (Y/n)? '
+    read answer
+    if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+    	printf 'please input the file directory :'
+        read directory
+        py3 /home/kali/Desktop/tools/OnwardTools/Script/scan_ec_curve_oids.py $directory
+    fi
+}
+
 function checksec_func {
     clear
     echo '--------------------------------------'
@@ -2480,7 +2494,7 @@ function home {
     logo
     echo ""
     PS3=">>"
-    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "PoCs" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "check debug symbol" "checksec" "enable/disable SSH" "BaseStation" "Metasploit" "Base 64 codec" "radius server" "rsyslog server" "delete test data" "upgrade" "Exit"
+    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "PoCs" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "check debug symbol" "Scan EC Curve" "checksec" "enable/disable SSH" "BaseStation" "Metasploit" "Base 64 codec" "radius server" "rsyslog server" "delete test data" "resize" "upgrade" "Exit"
     do
         case $option in
         "Exit")
@@ -2562,6 +2576,9 @@ function home {
         "check debug symbol")
             clear
             check_debug_symbol;;
+        "scan ec curve")
+            clear
+            Scan_EC_Curve;;
         "checksec")
             clear
             checksec_func;;
@@ -2597,6 +2614,9 @@ function home {
         "rsyslog server")
             clear
             Rsyslog;;
+        "resize")
+            clear
+            resize;;
         "upgrade")
             clear
             upgrade;;
@@ -2691,5 +2711,6 @@ function any_command {
 }
 
 home
+
 
 
