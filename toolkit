@@ -31,7 +31,7 @@ function Python {
                 cat /home/kali/Desktop/READMES/python_help
                 echo 'current version :'
                 echo ""
-                python -V
+                py3 -V
                 pip -V
                 echo ""
                 echo '--------------------------------------'
@@ -2691,4 +2691,5 @@ function any_command {
 }
 
 home
+
 
