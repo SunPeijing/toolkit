@@ -35,10 +35,16 @@ function Python {
                 pip -V
                 echo ""
                 echo '--------------------------------------'
-                printf 'do you wanna change python version (Y/n)? '
+                printf 'do you wanna change py3 version (Y/n)? '
                 read answer
                 if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
                         update-alternatives --config py3
+                        echo Done
+                fi
+                printf 'do you wanna change python3 version (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then 
+                        update-alternatives --config python3
                         echo Done
                 fi
                 printf 'do you wanna change pip version (Y/n)? '
@@ -2711,6 +2717,7 @@ function any_command {
 }
 
 home
+
 
 
 
