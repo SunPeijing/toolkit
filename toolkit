@@ -32,6 +32,7 @@ function Python {
                 echo 'current version :'
                 echo ""
                 py3 -V
+                python3 -V
                 pip -V
                 echo ""
                 echo '--------------------------------------'
@@ -2717,6 +2718,7 @@ function any_command {
 }
 
 home
+
 
 
 
