@@ -2045,6 +2045,121 @@ function Yersinia {
         esac
     done
 }
+function USB_Fuzz {
+    clear
+    PS3=">>USB_Fuzz>>"
+    select option in "Switch to Facedancer" "Device Scan" "Create Stages" "Start Stages and Start Fuzzing" "Exit"
+    do
+        case $option in
+            "Exit")
+                clear
+                PS3=">>"
+                return;;
+            "Switch to Facedancer")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "cynthion run facedancer"'
+                echo 'and using command "cynthion info" to check state'
+                echo '!!!!you need to see the Bitstream is Facedancer!!!!'
+                echo '--------------------------------------'
+                printf 'run Facedancer on the cynthion (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    clear
+                    cynthion run facedancer
+                    cynthion info
+                fi;;
+            "Device Scan")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "umap2scan -P cynthion"'
+                echo 'expected output is like below'
+                echo '[ALWAYS] Found 4 supported device(s):'
+                echo '[ALWAYS] 1. cdc_acm'
+                echo '[ALWAYS] 2. ftdi'
+                echo '[ALWAYS] 3. hub'
+                echo '[ALWAYS] 4. keyboard'
+                echo '--------------------------------------'
+                printf 'run the command (Y/n)? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    clear
+                    umap2scan -P cynthion
+                fi;;
+            "Create Stages")
+                echo '--------------------------------------'
+                echo 'command is "nmap2stages -P cynthion -C $type -s $type.stages"'
+                echo '$type pls follow device scan output'
+                echo '$type.stages is output file name'
+                echo 'example command is "nmap2stages -P cynthion -C hub -s hub.stages"'
+                echo 'using this function pls mv to your own dir'
+                echo '--------------------------------------'
+                printf 'does the device supported audio? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    nmap2stages -P cynthion -C audio -s audio.stages
+                fi
+                printf 'does the device supported cdc? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    nmap2stages -P cynthion -C cdc -s cdc.stages
+                fi
+                printf 'does the device supported cdc_acm? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    nmap2stages -P cynthion -C cdc_acm -s cdc_acm.stages
+                fi
+                printf 'does the device supported ftdi? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    nmap2stages -P cynthion -C ftdi -s ftdi.stages
+                fi
+                printf 'does the device supported hub? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    nmap2stages -P cynthion -C hub -s hub.stages
+                fi
+                printf 'does the device supported keyboard? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    nmap2stages -P cynthion -C keyboard -s keyboard.stages
+                fi
+                printf 'does the device supported mass_storage? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    nmap2stages -P cynthion -C mass_storage -s mass_storage.stages
+                fi
+                printf 'does the device supported printer? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    nmap2stages -P cynthion -C printer -s printer.stages
+                fi
+                printf 'does the device supported smartcard? '
+                read answer
+                if [ "$answer" != "${answer#[Yy]}" ] || [ "$answer" == '' ] ;then
+                    nmap2stages -P cynthion -C smartcard -s smartcard.stages
+                fi;;
+            "Start Stages and Start Fuzzing")
+                clear
+                echo '--------------------------------------'
+                echo 'command is "umap2kitty -s hub.stages -k '"'"'-t 0-999'"'"'" to start the stages with limit'
+                echo 'you can go to http://localhost:26000 to check the status'
+                echo 'and the command to start fuzz is "umap2fuzz -P cynthion -C $type"'
+                echo '--------------------------------------'
+                echo "please do it by youself";;
+            *)
+                if [ "$REPLY" == 'exit' ] || [ "$REPLY" == 'e' ] || [ "$REPLY" == 'back' ];then
+                    a=${PS3%>>*}
+                    PS3=${a%>>*}">>"
+                    return
+                else
+                    any_command
+                fi;;
+        esac
+    done
+}
+
+
 function Del_Test_Data {
     clear
     PS3=">>delete test data>>"
@@ -2501,7 +2616,7 @@ function home {
     logo
     echo ""
     PS3=">>"
-    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "iperf3" "curl" "DHCP monitor" "PoCs" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "check debug symbol" "Scan EC Curve" "checksec" "enable/disable SSH" "BaseStation" "Metasploit" "Base 64 codec" "radius server" "rsyslog server" "delete test data" "resize" "upgrade" "Exit"
+    select option in "python" "IPv6" "IPv4" "Test SSL" "onvif Test" "OpenSSL" "Nmap" "External_IP" "yersinia" "USB Fuzz" "iperf3" "curl" "DHCP monitor" "PoCs" "AP_v3.1" "MitM WEB" "sslsplit" "Restart NetworkManager" "string search" "check debug symbol" "Scan EC Curve" "checksec" "enable/disable SSH" "BaseStation" "Metasploit" "Base 64 codec" "radius server" "rsyslog server" "delete test data" "resize" "upgrade" "Exit"
     do
         case $option in
         "Exit")
@@ -2608,6 +2723,10 @@ function home {
         "yersinia")
             clear
             Yersinia;;
+        "USB Fuzz")
+            clear
+            USB_Fuzz;;
+
         "Base 64 codec")
             clear
             Base64;;
